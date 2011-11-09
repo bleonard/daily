@@ -22,6 +22,7 @@ gem 'jquery-rails'
 group :development do
   gem 'thin'
   gem 'ruby-debug'
+  gem 'rails3-generators'
 end
 
 group :test do
