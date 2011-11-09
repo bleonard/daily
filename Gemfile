@@ -27,6 +27,9 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'mocha'
+  gem 'shoulda'
+  gem 'factory_girl_rails'
+  gem 'capybara'
 end
 
 group :test, :development do
