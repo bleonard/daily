@@ -10,5 +10,6 @@ describe "Login" do
     click_button("Sign in")
     
     current_path.should == '/home'
+    page.should have_content('Signed in successfully.')
   end
 end
