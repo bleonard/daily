@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'integration_helper'
 
 describe "User" do
   it "should not allow user creation" do
