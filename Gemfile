@@ -8,6 +8,7 @@ gem 'mysql2'
 gem 'json'
 
 gem 'devise'
+gem 'declarative_authorization'
 
 # Gems used only for assets and not required
 # in production environments by default.

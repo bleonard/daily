@@ -52,6 +52,7 @@ GEM
     columnize (0.3.4)
     daemons (1.1.4)
     database_cleaner (0.6.7)
+    declarative_authorization (0.5.3)
     devise (1.4.9)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -183,6 +184,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 3.1.1)
   database_cleaner
+  declarative_authorization
   devise
   factory_girl_rails
   jquery-rails

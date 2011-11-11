@@ -27,7 +27,11 @@ describe "Login" do
       page.should have_content('Invalid email or password.')
     end
     
-    pending "should redirect to login"
+    it "should redirect to login when hit home" do
+      visit "/home"
+      current_path.should == '/'
+      page.should have_content('Sign in')
+    end
   end
 
   context "signed in" do

@@ -6,4 +6,11 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
+  
+  def role_symbols
+    return [] if new_record?
+    
+    out = [:user]
+    out
+  end
 end
