@@ -1,5 +1,10 @@
 require 'spec_helper'
 
 describe User do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should validate_presence_of :email }
+  it { should validate_presence_of :password }
+  
+  it "should be created from factory" do
+    Factory(:user).should_not be_new_record
+  end
 end
