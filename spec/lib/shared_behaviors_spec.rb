@@ -19,7 +19,6 @@ describe SharedModelTest do
   describe "guid generation" do
     before do
       SharedModelTest.any_instance.stubs(:guid_generate).returns("1234")
-      SharedModelTest.any_instance.stubs(:new_record?).returns(true)
     end
     
     context "new record" do
@@ -48,6 +47,15 @@ describe SharedModelTest do
         model.guid = "5678"
         model.run_callbacks(:validation)
         model.guid.should == "5678"
+      end
+      
+      it "should append and prepend when asked to" do
+        SharedModelTest.any_instance.stubs(:guid_append).returns("XYZ")
+        SharedModelTest.any_instance.stubs(:guid_prepend).returns("ABC")
+        model = SharedModelTest.new
+        model.guid.should be_nil
+        model.run_callbacks(:validation)
+        model.guid.should == "ABC1234XYZ"
       end
     end
     
