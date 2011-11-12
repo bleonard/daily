@@ -14,7 +14,8 @@ module Ruport
   class Formatter::HTML < Formatter    
     
     def safe(val)
-      ERB::Util.html_escape(val.to_s)
+      out = ERB::Util.html_escape(val.to_s)
+      out.gsub("&amp;nbsp;", "&nbsp;")
     end
     
     def safe_join(array, sep)
