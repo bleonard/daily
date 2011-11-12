@@ -6,4 +6,8 @@
 
 <hr/>
 
-<%= @table.test %>
+<% if params[:test] %>
+  <%= @table.test %>
+<% else %>
+  <%= link_to "See Table Output", table_path(@table, :test => true)%>
+<% end %>
