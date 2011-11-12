@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   
   has_many :tables
+  has_many :reports
   
   def role_symbols
     return [] if new_record?

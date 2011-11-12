@@ -1,5 +1,7 @@
 class Table < ActiveRecord::Base
   belongs_to :user
+  has_many :reports
+  
   validates_presence_of :user
   validates_presence_of :name
   validates_uniqueness_of :name, :case_sensitive => false

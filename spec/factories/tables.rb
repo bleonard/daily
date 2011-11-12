@@ -1,10 +1,10 @@
 FactoryGirl.define do
-  sequence :name do |n|
+  sequence :table_name do |n|
     "Table #{n}"
   end
   
   factory :table do
-    name
+    name { Factory.next(:table_name) }
     association :user
     data_type "sql"
     data "SELECT * FROM cities"
