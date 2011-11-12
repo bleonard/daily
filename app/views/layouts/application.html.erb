@@ -7,18 +7,34 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <% if header_title %>
-    <h1><%= header_title %></h1>
-  <% end %>
+  <div class="topbar">
+    <div class="fill">
+      <div class="container">
+        <a class="brand" href="<%= current_user ? "/home" : "/" %>">Daily</a>
+      </div>
+    </div>
+  </div>
   
-  <% if notice %>
-    <p class="notice"><%= notice %></p>
-  <% end %>
-  <% if alert %>
-    <p class="alert"><%= alert %></p>
-  <% end %>
+  <div class="container">
+    <% if header_title %>
+        <h1><%= header_title %></h1>
+    <% end %>
 
-  <%= yield %>
+    <% if notice %>
+      <div class="alert-message success">
+        <p><%= notice %></p>
+      </div>
+    <% end %>
+  
+    <% if alert %>
+      <div class="alert-message error">
+        <p><%= alert %></p>
+      </div>
+    <% end %>
+
+    <%= yield %>
+    
+  </div>
 
 </body>
 </html>

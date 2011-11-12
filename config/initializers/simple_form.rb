@@ -1,5 +1,11 @@
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
+  config.form_class = nil
+  config.hint_class = "hint input"
+  config.error_class = 'error input'
+  config.wrapper_class = :clearfix
+  config.wrapper_error_class = :error
+  
   # Components used by the form builder to generate a complete input. You can remove
   # any of them, change the order, or even add your own components to the stack.
   # config.components = [ :placeholder, :label_input, :hint, :error ]
@@ -91,3 +97,15 @@ SimpleForm.setup do |config|
   # When false, do not use translations for labels, hints or placeholders.
   # config.translate = true
 end
+
+SimpleForm::Inputs.constants.each do |klazz|
+  next if klazz == :Base
+  "SimpleForm::Inputs::#{klazz.to_s}".constantize.class_eval do
+    def input_with_surrounding_div
+      @builder.template.content_tag :div, input_without_surrounding_div, :class => "input"
+    end
+    alias_method_chain :input, :surrounding_div
+  end
+end
+
+

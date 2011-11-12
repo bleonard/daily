@@ -4,10 +4,9 @@
 
 <%= simple_format(@table.data) %>
 
-<hr/>
-
 <% if params[:test] %>
   <%= @table.test %>
 <% else %>
+  <hr/>
   <%= link_to "See Table Output", table_path(@table, :test => true)%>
 <% end %>
