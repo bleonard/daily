@@ -18,7 +18,7 @@ describe "Adding Tables" do
     
     page.should have_content("Table was successfully created.")
     page.should have_content('My Table')
-    current_path.should == '/home' 
+    current_path.should == '/tables/1' 
   end
   
   it "should display validations and then work" do
@@ -38,7 +38,10 @@ describe "Adding Tables" do
     click_button("Create Table")
     
     page.should have_content("Table was successfully created.")
-    current_path.should == '/home'
+    current_path.should == '/tables/2'
+    page.should have_content('whatever2')
+    
+    visit "/"
     page.should have_content('whatever1')
     page.should have_content('whatever2')
   end

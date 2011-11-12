@@ -3,3 +3,7 @@
 <%= content_tag(:p, link_to("Edit", edit_table_path(@table))) if permitted_to? :edit, @table %>
 
 <%= simple_format(@table.data) %>
+
+<hr/>
+
+<%= @table.test %>

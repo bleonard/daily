@@ -4,11 +4,11 @@ class TablesController < InheritedResources::Base
   def create
     build_resource.user = current_user
     build_resource.data_type = "sql"
-    create!{ user_root_url }
+    create!
   end
   
   def update
-    update!{ user_root_url }
+    update!
   end
 
 end
