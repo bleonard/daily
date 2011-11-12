@@ -10,7 +10,7 @@ describe Report do
   
   describe "filenames" do
     before do
-      Report.any_instance.stubs(:make_guid).returns("1234")
+      Report.any_instance.stubs(:guid_generate).returns("1234")
     end
     it "should generate a filename on create" do
       report = Factory.build(:report, :formatter => "csv")
