@@ -6,6 +6,8 @@ Daily::Application.routes.draw do
   end
   
   match 'home' => 'main#home', :as => :user_root
+  
+  resources :tables, :except => :index
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

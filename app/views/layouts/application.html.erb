@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Daily</title>
+  <title><%= page_title %></title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <% if header_title %>
+    <h1><%= header_title %></h1>
+  <% end %>
   
   <% if notice %>
     <p class="notice"><%= notice %></p>

@@ -4,7 +4,13 @@ authorization do
   end
   
   role :user do
-
+    has_permission_on :tables, :to => [:create]
+    has_permission_on :tables, :to => [:read]
+    
+    has_permission_on :tables, :to => [:update] do
+      if_attribute :user => is { user }
+    end
+    
   end
 end
 

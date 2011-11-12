@@ -1,5 +1,8 @@
 class Table < ActiveRecord::Base
   belongs_to :user
+  validates_presence_of :user
+  validates_presence_of :name
+  validates_uniqueness_of :name, :case_sensitive => false
   validates_presence_of :data
   validates_presence_of :data_type
   validate :data_type_known
