@@ -3,7 +3,6 @@ source 'http://rubygems.org'
 gem 'rails', '3.1.1'
 
 gem 'sqlite3'
-gem 'mysql2'
 
 gem 'json'
 
@@ -11,6 +10,12 @@ gem 'devise'
 gem 'declarative_authorization'
 gem 'inherited_resources'
 gem 'simple_form'
+
+gem 'ruport'
+gem 'ruport-util', :require => 'ruport/util'
+
+gem 'dbi'
+gem 'dbd-mysql'
 
 # Gems used only for assets and not required
 # in production environments by default.
