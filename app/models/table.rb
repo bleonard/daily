@@ -22,7 +22,9 @@ class Table < ActiveRecord::Base
     begin
       fetch.to_html.html_safe
     rescue => e
-      "#{e.message}\n#{e.backtrace.join("\n")}".gsub("\n", "<br/>").html_safe
+      out = "#{e.message}"
+      out += "\n\nTrace shown in development environment:\n#{e.backtrace.join("\n")}" if Rails.env.development?
+      out.gsub("\n", "<br/>").html_safe
     end
   end
   
