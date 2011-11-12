@@ -8,8 +8,8 @@ class Report < ActiveRecord::Base
   
   validates_presence_of :user
   validates_presence_of :table
-  validates_presence_of :name
-  validates_presence_of :formatter
+  validates_stripped_presence_of :name
+  validates_stripped_presence_of :formatter
 
   def guid_append
     return "" if formatter.blank?

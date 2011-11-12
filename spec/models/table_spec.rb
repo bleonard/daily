@@ -27,4 +27,15 @@ describe Table do
     end
   end
   
+  describe "uniqueness" do
+    it "should cehck uniqueness" do
+      other = Factory(:table, :name => "Whatever")
+      Table.new(:name => "Whatever").should have(1).error_on(:name)
+      Table.new(:name => "whatever").should have(1).error_on(:name)
+      Table.new(:name => "whatever ").should have(1).error_on(:name)
+      Table.new(:name => "   Whatever").should have(1).error_on(:name)
+      Table.new(:name => "Else").should have(0).error_on(:name)
+    end
+  end
+  
 end

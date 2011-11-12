@@ -8,24 +8,64 @@ class SharedModelTest
   include SharedBehaviors
   
   define_model_callbacks :validation
-  define_attribute_methods ['guid']
+  define_attribute_methods ['guid', 'name']
   
-  attr_accessor :guid
+  attr_accessor :guid, :name
   
   generate_guid :guid
+  validates_stripped_presence_of :name
 end
 
 describe SharedModelTest do
-  describe "guid generation" do
-    before do
-      SharedModelTest.any_instance.stubs(:guid_generate).returns("1234")
+  before do
+    SharedModelTest.any_instance.stubs(:guid_generate).returns("1234")
+    SharedModelTest.any_instance.stubs(:new_record?).returns(true)
+  end
+  
+  describe "validates presence of" do
+    it "should check" do
+      model = SharedModelTest.new
+      model.guid = "5678"
+      model.name = "whatever"
+      
+      model.should be_valid
+      
+      model.name = ""
+      model.should_not be_valid
+      
+      model.name = "  "
+      model.should_not be_valid
+      
+      model.name = nil
+      model.should_not be_valid
+    end
+  end
+  
+  describe "stripped behavior" do
+    it "should strip the string value" do
+      model = SharedModelTest.new
+      model.name = "whatever  "
+      model.run_callbacks(:validation)
+      model.name.should == "whatever"
     end
     
+    it "shouldn't mess with nil value" do
+      model = SharedModelTest.new
+      model.name = nil
+      model.run_callbacks(:validation)
+      model.name.should == nil
+    end
+    
+    it "shouldn't mess with fine value" do
+      model = SharedModelTest.new
+      model.name = "abc"
+      model.run_callbacks(:validation)
+      model.name.should == "abc"
+    end
+  end
+  
+  describe "guid generation" do
     context "new record" do
-      before do
-        SharedModelTest.any_instance.stubs(:new_record?).returns(true)
-      end
-      
       it "should generate a guid on create" do
         model = SharedModelTest.new
         model.guid.should be_nil
@@ -67,6 +107,7 @@ describe SharedModelTest do
       it "should not generate one" do
         # SharedModelTest.any_instance.stubs(:new_record?).returns(false)
         model = SharedModelTest.new
+        model.name = "fdjh"
         model.guid = ""
         model.run_callbacks(:validation)
         model.should_not be_valid

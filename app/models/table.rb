@@ -1,12 +1,16 @@
 class Table < ActiveRecord::Base
+  include SharedBehaviors
+  
   belongs_to :user
   has_many :reports
   
   validates_presence_of :user
-  validates_presence_of :name
+  validates_stripped_presence_of :name
+  validates_stripped_presence_of :data
+  validates_stripped_presence_of :data_type
+  
   validates_uniqueness_of :name, :case_sensitive => false
-  validates_presence_of :data
-  validates_presence_of :data_type
+    
   validate :data_type_known
   
   def sql?
