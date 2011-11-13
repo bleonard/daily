@@ -14,19 +14,25 @@ class Report < ActiveRecord::Base
     "files/#{table.guid}"
   end
 
-  def path
-    "#{parent}/#{filename}"
+  def localdir
+    "#{Rails.root}/public/#{parent}"
+  end
+  
+  def localfile
+    "#{localdir}/#{filename}"
   end
   
   def url(root)
-    "#{root}#{path}"
+    "#{root}#{parent}/#{filename}"
+  end
+  
+  def file_exists?
+    File.file?(localfile)
   end
   
   def generate!
-    pub = "#{Rails.root}/public"
-    dir = "#{pub}/#{parent}"
-    Dir.mkdir(dir) unless File.directory?(dir)
-    table.generate!(formatter, "#{pub}/#{path}")
+    Dir.mkdir(localdir) unless File.directory?(localdir)
+    table.generate!(formatter, localfile)
   end
 
   protected
