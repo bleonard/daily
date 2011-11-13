@@ -7,4 +7,6 @@
   <h5>URL: <%= @report.url(root_url) %></h5>
 <% end %>
 
+<%= button_to "Update Report File", generate_table_report_path(@report.table, @report) if permitted_to? :generate, @report %>
+
 <%= content_tag(:p, link_to("Edit", edit_table_report_path(@report.table, @report))) if permitted_to? :edit, @report %>

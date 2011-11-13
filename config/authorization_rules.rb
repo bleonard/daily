@@ -23,7 +23,7 @@ authorization do
       if_attribute :user => is { user }
     end
     
-    has_permission_on :reports, :to => [:read] do
+    has_permission_on :reports, :to => [:read, :generate] do
       if_permitted_to :update
     end
     
