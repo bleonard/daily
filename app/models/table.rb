@@ -51,7 +51,10 @@ class Table < ActiveRecord::Base
   end
   
   def fetch_sql
-    Ruport::Query.new(data).result
+    time = Time.now.to_i
+    result = Ruport::Query.new(data).result
+    update_attribute(:fetch_time_in_seconds, Time.now.to_i - time) unless new_record?
+    result
   end
   
 end
