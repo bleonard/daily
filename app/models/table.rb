@@ -11,7 +11,6 @@ class Table < ActiveRecord::Base
   validates_stripped_presence_of :data
   validates_stripped_presence_of :data_type
 
-    
   validate :data_type_known
   
   def sql?

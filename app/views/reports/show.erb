@@ -1,0 +1,6 @@
+<% title @report.name %>
+<h3>Table: <%= link_to @report.table.name, table_path(@report.table) %></h3>
+
+<h5>URL: <%= link_to @report.url(root_url), @report.url(root_url) %></h5>
+
+<%= content_tag(:p, link_to("Edit", edit_table_report_path(@report.table, @report))) if permitted_to? :edit, @report %>

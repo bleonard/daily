@@ -11,6 +11,22 @@ authorization do
       if_attribute :user => is { user }
     end
     
+    has_permission_on :tables, :to => [:report] do
+      if_permitted_to :show
+    end
+    
+    has_permission_on :reports, :to => [:create] do
+      if_permitted_to :report, :table
+    end
+    
+    has_permission_on :reports, :to => [:update] do
+      if_attribute :user => is { user }
+    end
+    
+    has_permission_on :reports, :to => [:read] do
+      if_permitted_to :update
+    end
+    
   end
 end
 

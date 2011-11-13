@@ -10,6 +10,14 @@ class Report < ActiveRecord::Base
   validates_unique_presence_of :name
   validates_stripped_presence_of :formatter
 
+  def path
+    "files/#{table.guid}/#{filename}"
+  end
+  
+  def url(root)
+    "#{root}#{path}"
+  end
+
   protected
 
   def guid_append

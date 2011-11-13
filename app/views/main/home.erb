@@ -2,10 +2,4 @@
 
 <h3>Tables</h3>
 <p><%= link_to "New Table", new_table_path if permitted_to? :new, :tables %></p>
-<% if current_user.tables.size > 0 %>
-<ul>
-  <% current_user.tables.each do |table| %>
-    <li><%= link_to table.name, table %></li>
-  <% end %>
-</ul>  
-<% end %>
+<%= render "tables/list", :list => current_user.tables %>

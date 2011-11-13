@@ -1,0 +1,7 @@
+<% if list.size > 0 %>
+  <ul>
+    <% list.each do |table| %>
+      <li><%= link_to table.name, table %></li>
+    <% end %>
+  </ul>
+<% end %>

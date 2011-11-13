@@ -1,7 +1,13 @@
 <% title @table.name %>
+
+<h3>Reports</h3>
+<p><%= link_to "New report from this table", new_table_report_path(@table) if permitted_to? :report, @table  %></p>
+<%= render "reports/list", :list => @table.reports %>
+
+<hr/>
+
 <%= content_tag(:p, "Type: #{@table.data_type}") %>
 <%= content_tag(:p, link_to("Edit", edit_table_path(@table))) if permitted_to? :edit, @table %>
-
 <%= simple_format(@table.data) %>
 
 <hr/>
