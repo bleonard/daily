@@ -32,7 +32,10 @@ class Report < ActiveRecord::Base
   
   def generate!
     Dir.mkdir(localdir) unless File.directory?(localdir)
-    table.generate!(formatter, localfile)
+    touch(:generate_started_at)
+    val = table.generate!(formatter, localfile)
+    touch(:generate_ended_at)
+    val
   end
 
   protected
