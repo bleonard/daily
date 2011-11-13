@@ -3,7 +3,6 @@ class Report < ActiveRecord::Base
   belongs_to :user
   belongs_to :table
   
-  
   generate_guid :filename
   
   validates_presence_of :user
