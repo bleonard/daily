@@ -7,15 +7,14 @@ class Report < ActiveRecord::Base
   
   validates_presence_of :user
   validates_presence_of :table
-  validates_stripped_presence_of :name
+  validates_unique_presence_of :name
   validates_stripped_presence_of :formatter
+
+  protected
 
   def guid_append
     return "" if formatter.blank?
     ".#{formatter.strip}"
   end
-
-  protected
-
 
 end

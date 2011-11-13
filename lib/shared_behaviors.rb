@@ -38,15 +38,19 @@ module SharedBehaviors
       @guid_field
     end
     
-    def validates_stripped_presence_of(*args)
-      validates_presence_of *args
-      field = args.first.to_sym
+    def validates_stripped_presence_of(field)
+      validates_presence_of field
       method = "strip_before_validation_#{field}"
       define_method method do
         return true if send(field).nil?
         send("#{field}=", send(field).strip)
       end
       before_validation method
+    end
+    
+    def validates_unique_presence_of(field)
+      validates_stripped_presence_of field
+      validates_uniqueness_of field, :case_sensitive => false
     end
   end
   

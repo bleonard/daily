@@ -7,11 +7,10 @@ class Table < ActiveRecord::Base
   generate_guid :guid
   
   validates_presence_of :user
-  validates_stripped_presence_of :name
+  validates_unique_presence_of :name
   validates_stripped_presence_of :data
   validates_stripped_presence_of :data_type
-  
-  validates_uniqueness_of :name, :case_sensitive => false
+
     
   validate :data_type_known
   
