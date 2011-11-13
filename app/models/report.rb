@@ -10,12 +10,23 @@ class Report < ActiveRecord::Base
   validates_unique_presence_of :name
   validates_stripped_presence_of :formatter
 
+  def parent
+    "files/#{table.guid}"
+  end
+
   def path
-    "files/#{table.guid}/#{filename}"
+    "#{parent}/#{filename}"
   end
   
   def url(root)
     "#{root}#{path}"
+  end
+  
+  def generate!
+    pub = "#{Rails.root}/public"
+    dir = "#{pub}/#{parent}"
+    Dir.mkdir(dir) unless File.directory?(dir)
+    table.generate!(formatter, "#{pub}/#{path}")
   end
 
   protected

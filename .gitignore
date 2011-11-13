@@ -5,3 +5,5 @@ tmp/
 .sass-cache/
 .DS_Store
 daily.yml
+process/*.tmp
+public/files/*/*
