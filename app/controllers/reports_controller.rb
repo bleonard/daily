@@ -4,7 +4,6 @@ class ReportsController < InheritedResources::Base
   
   def create
     build_resource.user = current_user
-    build_resource.formatter = "csv"
     create!
   end
   

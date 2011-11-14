@@ -11,9 +11,15 @@ class Report < ActiveRecord::Base
   validates_unique_presence_of :name
   validates_stripped_presence_of :formatter
 
-  after_create :queue_next!
-  after_save :queue_now!, :if => :filename_changed?
+  before_validation :filename_extension_update
 
+  after_save :ensure_job
+  after_save :queue_now!, :if => :filename_changed?
+  
+  def self.formatters
+    Ruport::Controller::Table.formats.keys
+  end
+  
   def parent
     "files/#{table.guid}"
   end
@@ -70,6 +76,24 @@ class Report < ActiveRecord::Base
   
   def calculate_next_gen_time
     Time.now + 1.hour
+  end
+  
+  protected
+  
+  def ensure_job
+    queue_next! if jobs.reload.size == 0
+    true
+  end
+  
+  def filename_extension_update
+    return true if filename_changed?
+    return true unless formatter_changed?
+    pieces = filename.split(".")
+    if pieces.size > 1
+      pieces[-1] = formatter.to_s
+      self.filename = pieces.join(".")
+    end
+    true
   end
 
 end

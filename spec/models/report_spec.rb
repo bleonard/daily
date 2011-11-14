@@ -38,6 +38,42 @@ describe Report do
       report.save.should == true
       report.reload.filename.should == "5678.csv"
     end
+    it "should change the filename if there is an extension and the formatter changes" do
+      report = Factory(:report, :formatter => "csv")
+      report.filename.should == "1234.csv"
+      report.formatter = "html"
+      report.save.should == true
+      report.reload.filename.should == "1234.html"
+    end
+    it "should not change the filename if the formatter does not change" do
+      report = Factory(:report, :formatter => "csv")
+      report.filename.should == "1234.csv"
+      report.filename = "1234.xls"
+      report.save.should == true
+      report.reload.filename.should == "1234.xls"
+    end
+    it "should not require an extension" do
+      report = Factory(:report, :formatter => "csv")
+      report.filename.should == "1234.csv"
+      report.filename = "5678"
+      report.save.should == true
+      report.reload.filename.should == "5678"
+    end
+    it "should not require an extension and not change when formatter changes" do
+      report = Factory(:report, :formatter => "csv", :filename => "5678")
+      report.filename.should == "5678"
+      report.formatter = "html"
+      report.save.should == true
+      report.reload.filename.should == "5678"
+    end
+    it "should leave the filename if both change" do
+      report = Factory(:report, :formatter => "csv")
+      report.filename.should == "1234.csv"
+      report.formatter = "html"
+      report.filename = "5678.else"
+      report.save.should == true
+      report.reload.filename.should == "5678.else"
+    end
   end
   
   describe "#generate!" do
@@ -64,6 +100,15 @@ describe Report do
       report = Factory(:report)
       report.expects(:queue_now!).never
       report.expects(:queue_next!).never
+      report.name = "something else name"
+      report.save.should == true
+    end
+    
+    it "should make sure there is a job on save" do
+      report = Factory(:report)
+      Delayed::Job.delete_all
+      report.expects(:queue_now!).never
+      report.expects(:queue_next!).once
       report.name = "something else name"
       report.save.should == true
     end

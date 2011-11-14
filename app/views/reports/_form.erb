@@ -3,6 +3,7 @@
 <%= simple_form_for [@report.table, @report] do |f| %>
   <%= f.input :name %>
   <%= f.input :filename unless @report.new_record? %>
+  <%= f.input :formatter, :collection => Report.formatters %>
   
   <%= f.button :submit %>
 <% end %>

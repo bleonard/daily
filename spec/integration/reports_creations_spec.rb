@@ -20,6 +20,7 @@ describe "Adding Reports" do
     page.should have_no_content("Filename")
     
     fill_in("Name", :with => "My Report")
+    select('csv', :from => "Formatter")
     
     click_button("Create Report")
     
