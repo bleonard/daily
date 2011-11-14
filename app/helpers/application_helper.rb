@@ -18,6 +18,19 @@ module ApplicationHelper
     "#{time} seconds"
   end
   
+  def display_time(time)
+    seconds = Time.now.to_i - time.to_i
+    
+    if seconds.abs < 10
+      out = "Now"
+    elsif seconds > 0
+      out = "#{time_ago_in_words(time)} ago"
+    else
+      out = "#{time_ago_in_words(time)} from now"
+    end
+    out += " (#{time.strftime("%T %Z")})"
+  end
+  
   def report_time_run(report)
     return "Unknown" if report.generate_started_at.nil?
     return "Unknown" if report.generate_ended_at.nil?
@@ -26,13 +39,17 @@ module ApplicationHelper
     seconds_sentence(time)
   end
   
+  def report_time_next(report)
+    job = report.next_job
+    return "Not scheduled" if job.nil?
+    return "Running now..." if job.locked_at.present?
+    display_time(job.run_at)
+  end
+  
   def report_time_ago(report)
     return "None" unless report.file_exists?
     return "Unknown" if report.generate_ended_at.nil?
-    
-    exact = report.generate_ended_at.strftime("%T %Z")
-    return "Future? (#{exact})" if report.generate_ended_at > Time.now
-    "#{time_ago_in_words(report.generate_ended_at)} ago (#{exact})"
+    display_time(report.generate_ended_at)
   end
   
   def table_time_run(table)

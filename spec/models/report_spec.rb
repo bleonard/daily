@@ -85,6 +85,7 @@ describe Report do
 
          job.run_at.should == Time.now
          job.priority.should == 0
+         job.report_id.should == report.id
        end
      end
   end
@@ -104,6 +105,7 @@ describe Report do
         
         job.run_at.should == 1.hour.from_now
         job.priority.should == 10
+        job.report_id.should == report.id
       end
     end
   end

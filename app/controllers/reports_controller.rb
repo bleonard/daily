@@ -13,7 +13,7 @@ class ReportsController < InheritedResources::Base
   end
   
   def generate
-    @report.generate!
+    @report.queue_now!
     redirect_to table_report_path(@report.table, @report)
   end
 end

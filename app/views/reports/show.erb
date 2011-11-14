@@ -9,6 +9,7 @@
 
 <h6>Running time: <%= report_time_run(@report) %></h6>
 <h6>Last updated: <%= report_time_ago(@report) %></h6>
-<%= button_to "Update Report File", generate_table_report_path(@report.table, @report) if permitted_to? :generate, @report %>
+<h6>Next updated: <%= report_time_next(@report) %></h6>
+<%= button_to "Queue Update Now", generate_table_report_path(@report.table, @report) if permitted_to? :generate, @report %>
 
 <%= content_tag(:p, link_to("Edit", edit_table_report_path(@report.table, @report))) if permitted_to? :edit, @report %>

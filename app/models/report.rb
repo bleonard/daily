@@ -2,6 +2,7 @@ class Report < ActiveRecord::Base
   include SharedBehaviors
   belongs_to :user
   belongs_to :table
+  has_many :jobs, :class_name => "::Delayed::Job"
   
   generate_guid :filename
   
@@ -43,12 +44,21 @@ class Report < ActiveRecord::Base
   
   def queue_next!
     job = GenerateReportJob.new(id, true)
-    Delayed::Job.enqueue :payload_object => job, :run_at => calculate_next_gen_time, :priority => 10
+    Delayed::Job.enqueue :payload_object => job, 
+                         :priority => 10,
+                         :run_at => calculate_next_gen_time,
+                         :report_id => id
   end
 
   def queue_now!
     job = GenerateReportJob.new(id, false)
-    Delayed::Job.enqueue :payload_object => job, :priority => 0
+    Delayed::Job.enqueue :payload_object => job, 
+                         :priority => 0,
+                         :report_id => id
+  end
+  
+  def next_job
+    jobs.by_priority.first
   end
 
   protected
