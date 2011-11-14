@@ -7,6 +7,7 @@
   <h5>URL: <%= @report.url(root_url) %></h5>
 <% end %>
 
+<h6>User: <%= "#{@report.user.email}" %></h6>
 <h6>Running time: <%= report_time_run(@report) %></h6>
 <h6>Last updated: <%= report_time_ago(@report) %></h6>
 <h6>Next updated: <%= report_time_next(@report) %></h6>
