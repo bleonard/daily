@@ -3,6 +3,7 @@
 # daily.yml is not checked in to source control and symlinked on the server
 
 development:
+  database:
     adapter: mysql
     host: localhost
     database: mydatabase
@@ -10,8 +11,9 @@ development:
     password: mypass
     
 production:
+  database:
     adapter: mysql
     host: localhost
-    database: dbprodname
+    database: db_readonly
     username: produser
     password: prodpass
