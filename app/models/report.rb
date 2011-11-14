@@ -10,6 +10,9 @@ class Report < ActiveRecord::Base
   validates_unique_presence_of :name
   validates_stripped_presence_of :formatter
 
+  after_create :queue_next!
+  after_save :queue_now!, :if => :filename_changed?
+
   def parent
     "files/#{table.guid}"
   end
@@ -37,12 +40,26 @@ class Report < ActiveRecord::Base
     touch(:generate_ended_at)
     val
   end
+  
+  def queue_next!
+    job = GenerateReportJob.new(id, true)
+    Delayed::Job.enqueue :payload_object => job, :run_at => calculate_next_gen_time, :priority => 10
+  end
+
+  def queue_now!
+    job = GenerateReportJob.new(id, false)
+    Delayed::Job.enqueue :payload_object => job, :priority => 0
+  end
 
   protected
 
   def guid_append
     return "" if formatter.blank?
     ".#{formatter.strip}"
+  end
+  
+  def calculate_next_gen_time
+    Time.now + 1.hour
   end
 
 end

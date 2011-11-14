@@ -38,4 +38,8 @@ describe Table do
     end
   end
   
+  describe "#generate!" do
+    it "should make the file"
+  end
+  
 end

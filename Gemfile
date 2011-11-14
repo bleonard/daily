@@ -27,6 +27,8 @@ end
 
 gem 'jquery-rails'
 
+gem 'delayed_job'
+
 group :development do
   gem 'thin'
   gem 'ruby-debug'
@@ -40,6 +42,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'
+  gem 'timecop'
 end
 
 group :test, :development do

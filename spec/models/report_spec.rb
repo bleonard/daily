@@ -39,4 +39,72 @@ describe Report do
       report.reload.filename.should == "5678.csv"
     end
   end
+  
+  describe "#generate!" do
+    it "should call table one with certain stuff"
+  end
+  
+  describe "automatic queueing" do
+    it "should queue on create" do
+      report = Factory.build(:report)
+      report.expects(:queue_now!).once
+      report.expects(:queue_next!).once
+      report.save.should == true
+    end
+    
+    it "should queue on filename change" do
+      report = Factory(:report)
+      report.expects(:queue_now!).once
+      report.expects(:queue_next!).never
+      report.filename = "something_else.html"
+      report.save.should == true
+    end
+    
+    it "should not queue on normal udpate" do
+      report = Factory(:report)
+      report.expects(:queue_now!).never
+      report.expects(:queue_next!).never
+      report.name = "something else name"
+      report.save.should == true
+    end
+    
+  end
+  
+  describe "#queue_now!" do
+    it "should make the delayed job now" do
+       report = Factory(:report)
+
+       Timecop.freeze do
+         expect { report.queue_now! }.should change(Delayed::Job, :count).by(1)
+
+         job = Delayed::Job.last
+
+         payload = job.payload_object
+         payload.report_id.should == report.id
+         payload.requeue.should == false
+
+         job.run_at.should == Time.now
+         job.priority.should == 0
+       end
+     end
+  end
+  
+  describe "#queue_next!" do
+    it "should make the delayed job a hour in the future" do
+      report = Factory(:report)
+      
+      Timecop.freeze do
+        expect { report.queue_next! }.should change(Delayed::Job, :count).by(1)
+      
+        job = Delayed::Job.last
+      
+        payload = job.payload_object
+        payload.report_id.should == report.id
+        payload.requeue.should == true
+        
+        job.run_at.should == 1.hour.from_now
+        job.priority.should == 10
+      end
+    end
+  end
 end
