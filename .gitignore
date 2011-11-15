@@ -7,3 +7,5 @@ tmp/
 daily.yml
 process/*.tmp
 public/files/*/*
+config/deploy.rb
+Capfile
