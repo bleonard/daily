@@ -5,7 +5,7 @@ authorization do
   
   role :user do
     has_permission_on :tables, :to => [:create]
-    has_permission_on :tables, :to => [:read]
+    has_permission_on :tables, :to => [:show]
     
     has_permission_on :tables, :to => [:update] do
       if_attribute :user => is { user }
@@ -23,10 +23,15 @@ authorization do
       if_attribute :user => is { user }
     end
     
-    has_permission_on :reports, :to => [:read, :generate] do
+    has_permission_on :reports, :to => [:show, :generate] do
       if_permitted_to :update
     end
     
+  end
+  
+  role :admin do
+    has_permission_on :tables, :to => :manage
+    has_permission_on :reports, :to => :manage
   end
 end
 

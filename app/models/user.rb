@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
     return [] if new_record?
     
     out = [:user]
+    out << :admin if admin?
     out
   end
 end

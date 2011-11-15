@@ -7,13 +7,15 @@ Daily::Application.routes.draw do
   
   match 'home' => 'main#home', :as => :user_root
   
-  resources :tables, :except => :index do
-    resources :reports, :except => :index do
+  resources :tables do
+    resources :reports do
       member do
         post :generate
       end
     end
   end
+  
+  resources :reports, :only => :index
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

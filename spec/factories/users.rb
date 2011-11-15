@@ -7,4 +7,8 @@ FactoryGirl.define do
     email { Factory.next(:user_email) }
     password "password"
   end
+  
+  factory :admin, :parent => :user do
+    admin true
+  end
 end
