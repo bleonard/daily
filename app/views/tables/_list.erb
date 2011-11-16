@@ -1,7 +1,9 @@
 <% if list.size > 0 %>
   <ul>
     <% list.each do |table| %>
-      <li><%= link_to table.name, table %></li>
+      <% if permitted_to? :show, table %>
+        <li><%= link_to table.name, table %></li>
+      <% end %>
     <% end %>
   </ul>
 <% end %>

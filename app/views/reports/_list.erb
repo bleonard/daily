@@ -1,7 +1,9 @@
 <% if list.size > 0 %>
   <ul>
     <% list.each do |report| %>
-      <li><%= link_to report.name, table_report_path(report.table, report) %></li>
+      <% if permitted_to? :show, report %>
+        <li><%= link_to report.name, table_report_path(report.table, report) %></li>
+      <% end %>
     <% end %>
   </ul>
 <% end %>
