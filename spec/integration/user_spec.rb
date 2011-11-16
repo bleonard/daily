@@ -24,6 +24,17 @@ describe "User" do
       page.should have_content("The page you were looking for doesn't exist.")
       page.should have_no_content("Report1")
     end
+    
+    it "should not allow the editing of someone elses profile" do
+      u = Factory(:user)
+      visit "/users/#{u.id}/edit"
+      page.should have_content("The page you were looking for doesn't exist.")
+      page.should have_no_content u.email
+      
+      visit "/users/#{@user.id}/edit"
+      page.should have_no_content("The page you were looking for doesn't exist.")
+      page.should have_content @user.email
+    end
   end
   
   describe "Account Management" do
