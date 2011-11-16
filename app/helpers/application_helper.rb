@@ -56,4 +56,15 @@ module ApplicationHelper
     return "Unknown" if table.fetch_time_in_seconds.nil?
     seconds_sentence(table.fetch_time_in_seconds)
   end
+  
+  def report_error_html(report)
+    report.jobs.each do |job|
+      if job.last_error 
+        msg = job.last_error.gsub("\\n", "\n")
+        msg = msg.split("\n").first unless Rails.env.development?
+        return simple_format(msg)
+      end
+    end
+    ""
+  end
 end
