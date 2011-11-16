@@ -16,6 +16,9 @@ Daily::Application.routes.draw do
   end
   
   resources :reports, :only => :index
+  
+  resources :users
+  get "account", :to => "users#edit"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

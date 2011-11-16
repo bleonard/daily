@@ -27,11 +27,16 @@ authorization do
       if_permitted_to :update
     end
     
+    has_permission_on :users, :to => [:update] do
+      if_attribute :id => is { user.id }
+    end
+    
   end
   
   role :admin do
     has_permission_on :tables, :to => :manage
     has_permission_on :reports, :to => :manage
+    has_permission_on :users, :to => :manage
   end
 end
 

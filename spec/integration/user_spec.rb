@@ -26,4 +26,18 @@ describe "User" do
     end
   end
   
+  describe "Account Management" do
+    before do
+      @user = Factory(:user, :email => "james@example.com")
+      login_as @user
+    end
+    
+    it "should allow editing of email and password" do
+      visit "/account"
+      fill_in("Email", :with => "john@example.com")
+      click_button("Update User")
+      page.should have_content("User was successfully updated.")
+      current_path.should == '/home'
+    end
+  end
 end
