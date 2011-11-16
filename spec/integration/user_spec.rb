@@ -35,6 +35,11 @@ describe "User" do
       page.should have_no_content("The page you were looking for doesn't exist.")
       page.should have_content @user.email
     end
+    
+    it "should not allow the creation of a user" do
+      visit "/users/new"
+      page.should have_content("The page you were looking for doesn't exist.")
+    end
   end
   
   describe "Account Management" do
