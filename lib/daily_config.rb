@@ -13,7 +13,7 @@ module DailyConfig
     db = env_hash['database']
     return if db.empty?
     Ruport::Query.add_source :default,
-                             :dsn => "dbi:#{db['adapter']}:database=#{db['database']};host=#{db['host']}", 
+                             :dsn => "dbi:#{db['adapter'].camelize}:database=#{db['database']};host=#{db['host']}", 
                              :user => "#{db['username']}",
                              :password => "#{db['password']}"
   end

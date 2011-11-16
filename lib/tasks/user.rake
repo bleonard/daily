@@ -11,7 +11,12 @@ namespace :user do
   task :admin, [:email, :password] => [:environment, :create] do |t, args|
     user = User.find_by_email(args[:email])
     if user
-      puts "TODO: admin flag"
+      user.admin = true
+      if user.save
+        puts "User made admin."
+      else
+        puts "User NOT saved as admin."
+      end
     else
       put "User not found."
     end
