@@ -16,7 +16,13 @@ class UsersController < InheritedResources::Base
     params[:id] ||= (current_user.try(:id) || 0)
   end
   def redirect_after_update
-    sign_in @user, :bypass => true if @user == current_user
-    redirect_to user_root_path
+    if @user == current_user
+      sign_in @user, :bypass => true
+      redirect_to user_root_path
+    elsif permitted_to? :show, @user
+      redirect_to user_path(@user)
+    else
+      redirect_to user_root_path
+    end
   end
 end

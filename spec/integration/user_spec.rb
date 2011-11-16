@@ -38,6 +38,7 @@ describe "User" do
       click_button("Update User")
       page.should have_content("User was successfully updated.")
       current_path.should == '/home'
+      page.should have_content("Welcome john@example.com")
     end
   end
 end

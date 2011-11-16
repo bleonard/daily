@@ -1,10 +1,4 @@
-<% title "Welcome" %>
+<% title "Welcome #{current_user.email}" %>
+<%= content_tag(:p, link_to("Update Account", account_path)) if permitted_to? :account, current_user %>
 
-<h3>Tables</h3>
-<p><%= link_to "New Table", new_table_path if permitted_to? :new, :tables %></p>
-<%= render "tables/list", :list => current_user.tables %>
-
-<% if current_user.reports.size > 0 %>
-  <h3>Reports</h3>
-  <%= render "reports/list", :list => current_user.reports %>
-<% end %>
+<%= render 'users/items', :user => current_user %>

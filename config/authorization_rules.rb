@@ -27,7 +27,7 @@ authorization do
       if_permitted_to :update
     end
     
-    has_permission_on :users, :to => [:update] do
+    has_permission_on :users, :to => [:update, :account] do
       if_attribute :id => is { user.id }
     end
     

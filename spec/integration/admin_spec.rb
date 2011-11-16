@@ -22,4 +22,16 @@ describe "Admin" do
       page.should have_content("Report2")
     end
   end
+  
+  describe "Editing users" do
+    it "should allow editing email and password" do
+      u = Factory(:user, :email => "bill@example.com")
+      visit "/users/#{u.id}/edit"
+      fill_in("Email", :with => "john@example.com")
+      click_button("Update User")
+      page.should have_content("User was successfully updated.")
+      current_path.should == "/users/#{u.id}"
+      page.should have_content("john@example.com")
+    end
+  end
 end
