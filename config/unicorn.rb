@@ -13,7 +13,7 @@ timeout 30
 # We will point the upstream Nginx module to this socket later on
 listen "/home/ubuntu/www/daily/shared/sockets/unicorn.sock", :backlog => 64
 
-pid "/home/ubuntu/www/daily/current/tmp/pids/unicorn.pid"
+pid "/home/ubuntu/www/daily/shared/pids/unicorn.pid"
 
 # Set the path of the log files inside the log folder of the testapp
 stderr_path "/home/ubuntu/www/daily/current/log/unicorn.stderr.log"
