@@ -2,10 +2,10 @@
 
 require ::File.expand_path('../config/environment',  __FILE__)
 
-if Rails.env.production?
-  map '/daily' do
-    run Daily::Application
-  end
-else
+#if Rails.env.production?
+#  map '/daily' do
+#    run Daily::Application
+#  end
+#else
   run Daily::Application
-end
+#end
