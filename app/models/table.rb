@@ -13,14 +13,27 @@ class Table < ActiveRecord::Base
 
   validate :data_type_known
   
+  serialize :column_names, Array
+  
   def sql?
     data_type == "sql"
   end
   
+  def results
+    fetch
+  end
+  
   def fetch
-    # TODO: method to make test easier?
-    return fetch_sql if sql?
-    Ruport::Data::Table.new
+    time = Time.now.to_i
+    out = fetch_data
+    
+    atts = {}
+    atts[:fetch_time_in_seconds] = Time.now.to_i - time
+    atts[:column_names] = out.column_names
+    self.attributes = atts
+    save unless new_record?
+    
+    out
   end
   
   def test
@@ -42,11 +55,9 @@ class Table < ActiveRecord::Base
     end
   end
   
-  def fetch_sql
-    time = Time.now.to_i
-    result = Ruport::Query.new(data).result
-    update_attribute(:fetch_time_in_seconds, Time.now.to_i - time) unless new_record?
-    result
+  def fetch_data
+    return Ruport::Query.new(data).result if sql?
+    Ruport::Data::Table.new
   end
   
 end

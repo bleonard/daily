@@ -37,4 +37,34 @@ describe Table do
       Table.new(:name => "Else").should have(0).error_on(:name)
     end
   end
+  
+  describe "#fetch" do
+    context "on a saved record" do
+      before do
+        data = Ruport::Data::Table.new(:data => [[1,2,3], [7,8,9]], :column_names => %w[a b c])
+        @table = Factory(:table)
+        @table.stubs(:fetch_data).returns(data)
+      end
+      it "should store the time to process" do
+        @table.fetch_time_in_seconds.should be_nil
+        @table.fetch
+        @table.reload.fetch_time_in_seconds.should_not be_nil
+      end
+      it "should store column names" do
+        @table.column_names.should == []
+        @table.fetch
+        @table.reload.column_names.should == ["a", "b", "c"]
+      end
+    end
+    context "on a new record" do
+      it "should also update attributes but in memory" do
+        data = Ruport::Data::Table.new(:data => [[1,2,3], [7,8,9]], :column_names => %w[a b c])
+        @table = Table.new
+        @table.stubs(:fetch_data).returns(data)
+        @table.fetch
+        @table.should be_new_record
+        @table.column_names.should == ["a", "b", "c"]
+      end
+    end
+  end
 end

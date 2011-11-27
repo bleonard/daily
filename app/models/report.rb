@@ -43,7 +43,7 @@ class Report < ActiveRecord::Base
   def generate!
     Dir.mkdir(localdir) unless File.directory?(localdir)
     touch(:generate_started_at)
-    data = table.fetch
+    data = table.result
     val = save_as!(data, localfile)
     touch(:generate_ended_at)
     val

@@ -10,13 +10,24 @@
 <h6>Type: <%= "#{@table.data_type}" %></h6>
 <h6>Running time: <%= table_time_run(@table) %></h6>
 <%= content_tag(:p, link_to("Edit", edit_table_path(@table))) if permitted_to? :edit, @table %>
-<%= simple_format(@table.data) %>
-
-<hr/>
 
 <% if params[:test] %>
   <p><%= link_to "Hide Table Output", table_path(@table) %></p>
   <%= @table.test %>
 <% else %>
   <p><%= link_to "See Table Output", table_path(@table, :test => true) %></p>
+  
+  <% if @table.column_names and @table.column_names.size > 0 %>
+    <table>
+      <tr>
+        <% @table.column_names.each do |name| %>
+          <th><%= name %></th>
+        <% end %>
+      </tr>
+    </table>
+  <% end %>
 <% end %>
+
+<hr/>
+
+<%= simple_format(@table.data) %>
