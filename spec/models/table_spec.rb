@@ -37,9 +37,4 @@ describe Table do
       Table.new(:name => "Else").should have(0).error_on(:name)
     end
   end
-  
-  describe "#generate!" do
-    it "should make the file"
-  end
-  
 end

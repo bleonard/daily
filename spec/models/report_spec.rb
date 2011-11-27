@@ -77,7 +77,11 @@ describe Report do
   end
   
   describe "#generate!" do
-    it "should call table one with certain stuff"
+    it "should all save_as with the table data"
+  end
+  
+  describe "#save_as!" do
+    it "should save the report to disk"
   end
   
   describe "automatic queueing" do

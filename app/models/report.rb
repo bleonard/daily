@@ -43,9 +43,18 @@ class Report < ActiveRecord::Base
   def generate!
     Dir.mkdir(localdir) unless File.directory?(localdir)
     touch(:generate_started_at)
-    val = table.generate!(formatter, localfile)
+    data = table.fetch
+    val = save_as!(data, localfile)
     touch(:generate_ended_at)
     val
+  end
+  
+  def save_as!(data, path)
+    tempfile = "#{Rails.root}/process/#{Time.now.to_i}_#{rand(9999999)}_#{rand(9999999)}.tmp"
+    return false unless data.as(formatter.to_sym, :file => tempfile)
+    return false unless File.file?(tempfile)
+    File.rename(tempfile, path)
+    File.file?(path)
   end
   
   def queue_next!

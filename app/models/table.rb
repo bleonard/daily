@@ -33,15 +33,7 @@ class Table < ActiveRecord::Base
       out.gsub("\n", "<br/>").html_safe
     end
   end
-  
-  def generate!(format, path)
-    tempfile = "#{Rails.root}/process/#{Time.now.to_i}_#{rand(9999999)}_#{rand(9999999)}.tmp"
-    return false unless fetch.as(format.to_sym, :file => tempfile)
-    return false unless File.file?(tempfile)
-    File.rename(tempfile, path)
-    File.file?(path)
-  end
-  
+    
   protected
   def data_type_known
     return if data_type.blank?
