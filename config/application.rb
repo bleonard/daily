@@ -1,6 +1,8 @@
 require File.expand_path('../boot', __FILE__)
+require File.expand_path('../../lib/daily_config', __FILE__)
 
 require 'rails/all'
+
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -50,5 +52,6 @@ module Daily
       g.fixture_replacement :factory_girl, :dir => 'spec/factories'
     end
     
+    DailyConfig.config_init(config)
   end
 end
