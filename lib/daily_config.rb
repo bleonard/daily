@@ -10,6 +10,7 @@ module DailyConfig
   end
   
   def subdirectory
+    return "" if Rails.env.test?
     hash['subdirectory'] || env_hash['subdirectory'] || ""
   end
   
