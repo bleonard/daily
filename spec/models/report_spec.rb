@@ -76,6 +76,25 @@ describe Report do
     end
   end
   
+  describe "url" do
+    before do
+      @report = Report.new(:filename => "file.csv")
+      @report.table = Table.new(:guid => "table_id")
+    end
+    it "should take the root" do
+      @report.url("http://www.example.com").should == "http://www.example.com/files/table_id/file.csv"
+    end
+    it "should take the root with slash" do
+      @report.url("http://www.example.com/").should == "http://www.example.com/files/table_id/file.csv"
+    end
+    it "should take a subdir" do
+      @report.url("http://www.example.com/test").should == "http://www.example.com/test/files/table_id/file.csv"
+    end
+    it "should take a subdir with a slash" do
+      @report.url("http://www.example.com/test/").should == "http://www.example.com/test/files/table_id/file.csv"
+    end
+  end
+  
   describe "#generate!" do
     it "should all save_as with the table data"
   end

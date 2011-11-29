@@ -33,6 +33,7 @@ class Report < ActiveRecord::Base
   end
   
   def url(root)
+    root += "/" unless root[-1, 1] == "/"
     "#{root}#{parent}/#{filename}"
   end
   
