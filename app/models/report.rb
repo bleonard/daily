@@ -25,7 +25,7 @@ class Report < ActiveRecord::Base
   end
 
   def localdir
-    "#{Rails.root}/public/#{parent}"
+    "#{Rails.root}/#{parent}"
   end
   
   def localfile

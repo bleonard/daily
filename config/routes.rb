@@ -23,6 +23,7 @@ Daily::Application.routes.draw do
     resources :users
     get "account", :to => "users#edit"
     
+    get "files/*path", :to => "files#show", :format => false
   end
   
 end

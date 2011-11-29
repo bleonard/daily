@@ -6,6 +6,7 @@ tmp/
 .DS_Store
 daily.yml
 process/*.tmp
-public/files/*/*
+files/*/*
 config/deploy.rb
 Capfile
+files/b72289c4c2971b1850b5965ded899888/3fe073657400663c740ec5e4ed23c029.txt

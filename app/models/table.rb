@@ -19,7 +19,7 @@ class Table < ActiveRecord::Base
     data_type == "sql"
   end
   
-  def results
+  def result
     fetch
   end
   
