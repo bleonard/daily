@@ -55,6 +55,21 @@ describe Table do
         @table.fetch
         @table.reload.column_names.should == ["a", "b", "c"]
       end
+      
+      it "should apply a transform afterwards if available" do
+        data = Ruport::Data::Table.new(:data => [[1,2,3], [7,8,9]], :column_names => %w[a b c])
+        @table = Factory(:table, :transform => "Transform::ColumnFilter", :transform_data => {:columns => [ "a", "c"]} )
+        @table.stubs(:fetch_data).returns(data)
+
+        out = @table.result
+        out.column_names.should == ["a", "c"]  
+        out.size.should == 2
+        out[0][0].should == 1
+        out[0][1].should == 3
+        out[0][2].should be_nil
+
+        @table.column_names.should == ["a","c"]
+      end
     end
     context "on a new record" do
       it "should also update attributes but in memory" do
@@ -67,4 +82,6 @@ describe Table do
       end
     end
   end
+
+  
 end

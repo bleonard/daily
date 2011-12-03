@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111127065357) do
+ActiveRecord::Schema.define(:version => 20111203020425) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(:version => 20111127065357) do
     t.datetime "updated_at"
     t.datetime "generate_started_at"
     t.datetime "generate_ended_at"
+    t.string   "transform"
+    t.text     "transform_data"
   end
 
   create_table "tables", :force => true do |t|
@@ -51,6 +53,8 @@ ActiveRecord::Schema.define(:version => 20111127065357) do
     t.string   "guid"
     t.integer  "fetch_time_in_seconds"
     t.text     "column_names"
+    t.string   "transform"
+    t.text     "transform_data"
   end
 
   create_table "users", :force => true do |t|

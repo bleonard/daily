@@ -25,8 +25,10 @@ class Table < ActiveRecord::Base
   
   def fetch
     time = Time.now.to_i
-    out = fetch_data
     
+    out = fetch_data
+    out = apply_transform(out)
+
     atts = {}
     atts[:fetch_time_in_seconds] = Time.now.to_i - time
     atts[:column_names] = out.column_names

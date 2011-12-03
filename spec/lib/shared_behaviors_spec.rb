@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 class SharedModelTest
+  def self.serialize(*args)
+  end
+  
   include ActiveModel::Validations
   include ActiveModel::AttributeMethods
   extend ActiveModel::Callbacks
@@ -14,12 +17,37 @@ class SharedModelTest
   
   generate_guid :guid
   validates_stripped_presence_of :name
+  
+  attr_accessor :transform, :transform_data
 end
 
 describe SharedModelTest do
   before do
     SharedModelTest.any_instance.stubs(:guid_generate).returns("1234")
     SharedModelTest.any_instance.stubs(:new_record?).returns(true)
+  end
+  
+  describe "#apply_transform" do
+    it "should return same data if not available" do
+      data = Ruport::Data::Table.new(:data => [[1,2,3], [7,8,9]], :column_names => %w[a b c])
+      
+      model = SharedModelTest.new
+      
+      out = model.apply_transform(data)
+      out.column_names.should == ["a","b", "c"]  
+      out.size.should == 2
+    end
+    it "should apply a transform when available" do
+      data = Ruport::Data::Table.new(:data => [[1,2,3], [7,8,9]], :column_names => %w[a b c])
+      
+      model = SharedModelTest.new
+      model.transform = "Transform::ColumnFilter"
+      model.transform_data = {:columns => [ "a", "c"]}
+      
+      out = model.apply_transform(data)
+      out.column_names.should == ["a", "c"]  
+      out.size.should == 2
+    end
   end
   
   describe "validates presence of" do

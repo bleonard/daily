@@ -9,3 +9,4 @@ process/*.tmp
 files/*/*
 config/deploy.rb
 Capfile
+.rvmrc

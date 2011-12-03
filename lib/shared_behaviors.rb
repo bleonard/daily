@@ -2,6 +2,7 @@ module SharedBehaviors
   def self.included(model)
     model.send :include, InstanceMethods
     model.send :extend, ClassMethods
+    model.send :serialize, :transform_data, Hash
   end
   
   
@@ -9,6 +10,13 @@ module SharedBehaviors
     def guid_generate
       key = "#{Time.now.to_i}::#{rand(999999999)}::#{attributes.values.join("::")}"
       Digest::MD5.hexdigest(key)
+    end
+
+    def apply_transform(table)
+      return table unless transform
+      
+      inst = transform.constantize.new(table, transform_data)
+      inst.result
     end
     
     protected
@@ -25,7 +33,6 @@ module SharedBehaviors
       return true unless val.blank?
       send("#{self.class.guid_field}=", settable_guid)
     end
-  
   end
   
   module ClassMethods
