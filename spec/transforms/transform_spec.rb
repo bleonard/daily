@@ -12,8 +12,7 @@ describe Transform do
   
   describe ".transforms" do
     array = Transform.transforms
-    puts array.inspect
-    array.include?(["Column Filter", "Transform::ColumnFilter"]).should == true
+    array.include?(ColumnFilter).should == true
   end
   
   describe "#result" do

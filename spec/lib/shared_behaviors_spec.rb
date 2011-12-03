@@ -41,7 +41,7 @@ describe SharedModelTest do
       data = Ruport::Data::Table.new(:data => [[1,2,3], [7,8,9]], :column_names => %w[a b c])
       
       model = SharedModelTest.new
-      model.transform = "Transform::ColumnFilter"
+      model.transform = "ColumnFilter"
       model.transform_data = {:columns => [ "a", "c"]}
       
       out = model.apply_transform(data)

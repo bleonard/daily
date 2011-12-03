@@ -1,10 +1,6 @@
 class Transform
   def self.transforms
-    out = []
-    self.subclasses.each do |klazz|
-      out << [klazz.display_name, klazz.name]
-    end
-    out
+    [ColumnFilter]
   end
   
   def self.display_name

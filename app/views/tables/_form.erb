@@ -1,5 +1,8 @@
 <%= simple_form_for @table do |f| %>
   <%= f.input :name %>
   <%= f.input :data %>
+  
+  <%= f.input :transform, :collection => Transform.transforms, :label_method => :display_name, :value_method => :name %>
+  <%= f.input :transform_json, :as => :text %>
   <%= f.button :submit %>
 <% end %>

@@ -58,7 +58,7 @@ describe Table do
       
       it "should apply a transform afterwards if available" do
         data = Ruport::Data::Table.new(:data => [[1,2,3], [7,8,9]], :column_names => %w[a b c])
-        @table = Factory(:table, :transform => "Transform::ColumnFilter", :transform_data => {:columns => [ "a", "c"]} )
+        @table = Factory(:table, :transform => "ColumnFilter", :transform_data => {:columns => [ "a", "c"]} )
         @table.stubs(:fetch_data).returns(data)
 
         out = @table.result

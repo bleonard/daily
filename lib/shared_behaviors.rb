@@ -12,11 +12,21 @@ module SharedBehaviors
       Digest::MD5.hexdigest(key)
     end
 
+    def transform_json
+      return @transform_json if @transform_json
+      return nil if transform_data.blank?
+      JSON.pretty_generate(transform_data)
+    end
+    
+    def transform_json=val
+      @transform_data = val
+      set_transform_json
+    end
+
     def apply_transform(table)
-      return table unless transform
-      
-      inst = transform.constantize.new(table, transform_data)
-      inst.result
+      return table if transform.blank?
+      t = transform.constantize.new(table, transform_data)
+      t.result
     end
     
     protected
@@ -32,6 +42,17 @@ module SharedBehaviors
       val = send(self.class.guid_field)
       return true unless val.blank?
       send("#{self.class.guid_field}=", settable_guid)
+    end
+    
+    def set_transform_json
+      return unless defined?(@transform_data)
+      self.transform_data = nil
+      return if @transform_data.blank?
+      begin
+        self.transform_data = JSON.parse(@transform_data)
+      rescue => ex
+        self.errors.add(:transform_json, ex.message)
+      end
     end
   end
   

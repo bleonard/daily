@@ -10,3 +10,7 @@
 	position: static;
 	margin-bottom: 15px;
 }
+
+textarea {
+	width: 420px;
+}
