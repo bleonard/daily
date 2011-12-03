@@ -45,6 +45,7 @@ class Report < ActiveRecord::Base
     Dir.mkdir(localdir) unless File.directory?(localdir)
     touch(:generate_started_at)
     data = table.result
+    data = apply_transform(data)
     val = save_as!(data, localfile)
     touch(:generate_ended_at)
     val

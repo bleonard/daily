@@ -67,4 +67,12 @@ module ApplicationHelper
     end
     ""
   end
+  
+  def transform_display(object)
+    return "" if object.transform.blank?
+    out  = "<hr/>".html_safe 
+    out += content_tag(:p, "Transform: " + object.transform.constantize.display_name)
+    out += simple_format(h(JSON.pretty_generate(object.transform_data)).gsub(" ", "&nbsp;")) unless object.transform_data.blank?
+    out.html_safe
+  end
 end
