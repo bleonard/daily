@@ -1,6 +1,6 @@
 class Transform
   def self.transforms
-    [ColumnFilter]
+    [ColumnFilter, MovingAverage]
   end
   
   def self.display_name
@@ -18,7 +18,8 @@ class Transform
   end
 
   def setting(key, default = nil)
-    settings[key.to_sym] || default
+    val = settings[key.to_sym]
+    val.blank? ? default : val
   end
 
   def columns

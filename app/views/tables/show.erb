@@ -11,9 +11,9 @@
 <h6>Running time: <%= table_time_run(@table) %></h6>
 <%= content_tag(:p, link_to("Edit", edit_table_path(@table))) if permitted_to? :edit, @table %>
 
-<% if params[:test] %>
+<% if @test_html %>
   <p><%= link_to "Hide Table Output", table_path(@table) %></p>
-  <%= @table.test %>
+  <%= @test_html %>
 <% else %>
   <p><%= link_to "See Table Output", table_path(@table, :test => true) %></p>
   

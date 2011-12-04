@@ -11,4 +11,10 @@ class TablesController < InheritedResources::Base
     update!
   end
 
+  def show
+    show! do
+      @test_html = @table.test if params[:test]
+    end
+  end
+
 end
