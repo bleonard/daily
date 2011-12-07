@@ -1,8 +1,19 @@
 # Daily
 
+This Rails 3.1 application is about keeping reports on your application up to date without overloading your database.
+
+* Execute and SQL query every hour and ptionally run some code to transform it a bit
+* People can create reports in various formats (csv, json, pdf, etc) from that with another optional transform
+* These reports are saved at a public (albeit crazy-long) URL for linking from dashboards or your application
+
+By doing this caching and running against a read-only database, it will reduce the load on the database as compared to application report generators or giving lots of people SQL access.
+
+The code leverages the Ruport[http://www.rubyreports.org/] library wherever possible.
+
 ## Setup
 
 Server installations needed:
+
 * rvm
 * some rvm ruby (ree)
 
@@ -17,5 +28,14 @@ Then, I put my version of daily.yml in the /app/path/shared directory.
     bundle exec cap production seed:admin
 
 Which makes the first user
+
 * email: admin@example.com
 * password: changeme
+
+## TODO
+
+* Variable report refresh cycle (minutes, hours, days)
+* Allow JSON inputs into report formatters
+* Make more report formatters
+* Make more transforms
+* Cache the table data (also on a variable schedule)
