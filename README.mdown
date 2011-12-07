@@ -8,7 +8,7 @@ This Rails 3.1 application is about keeping reports on your application up to da
 
 By doing this caching and running against a read-only database, it will reduce the load on the database as compared to application report generators or giving lots of people SQL access.
 
-The code leverages the Ruport[http://www.rubyreports.org/] library wherever possible.
+The code leverages the [Ruport](http://www.rubyreports.org/) library wherever possible.
 
 ## Setup
 
@@ -39,3 +39,8 @@ Which makes the first user
 * Make more report formatters
 * Make more transforms
 * Cache the table data (also on a variable schedule)
+
+
+
+
+Copyright (c) 2011 Brian Leonard, released under the MIT license
