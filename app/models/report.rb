@@ -4,6 +4,8 @@ class Report < ActiveRecord::Base
   belongs_to :table
   has_many :jobs, :class_name => "::Delayed::Job"
   
+  serialize :formatter_data, Hash
+  
   generate_guid :filename
   
   validates_presence_of :user
@@ -53,7 +55,7 @@ class Report < ActiveRecord::Base
   
   def save_as!(data, path)
     tempfile = "#{Rails.root}/process/#{Time.now.to_i}_#{rand(9999999)}_#{rand(9999999)}.tmp"
-    return false unless data.as(formatter.to_sym, :file => tempfile)
+    return false unless data.as(formatter.to_sym, (formatter_data || {}).merge(:file => tempfile))
     return false unless File.file?(tempfile)
     File.rename(tempfile, path)
     File.file?(path)
