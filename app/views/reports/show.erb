@@ -15,6 +15,8 @@
 
 <%= content_tag(:p, link_to("Edit", edit_table_report_path(@report.table, @report))) if permitted_to? :edit, @report %>
 
+<%= formatter_display(@report) %>
+
 <%= transform_display(@report) %>
 
 <hr/>

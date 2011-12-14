@@ -4,7 +4,7 @@ class Report < ActiveRecord::Base
   belongs_to :table
   has_many :jobs, :class_name => "::Delayed::Job"
   
-  serialize :formatter_data, Hash
+  has_data :formatter
   
   generate_guid :filename
   

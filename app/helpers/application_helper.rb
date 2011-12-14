@@ -68,6 +68,13 @@ module ApplicationHelper
     ""
   end
   
+  def formatter_display(object)
+    out  = "<hr/>".html_safe 
+    out += content_tag(:p, "Formatter: " + object.formatter.to_s)
+    out += simple_format(h(JSON.pretty_generate(object.formatter_data)).gsub(" ", "&nbsp;")) unless object.formatter_data.blank?
+    out.html_safe
+  end
+  
   def transform_display(object)
     return "" if object.transform.blank?
     out  = "<hr/>".html_safe 
