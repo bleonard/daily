@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 # This command will automatically be run when you run "rails" with Rails 3 gems installed from the root of your application.
 
+# I had to rename config.ru to work as an engine - this will restore it before main app launch
+require "ftools"
+File.copy(File.expand_path('../../config.cp',  __FILE__).to_s, File.expand_path('../../config.ru',  __FILE__).to_s)
+
 APP_PATH = File.expand_path('../../config/application',  __FILE__)
 require File.expand_path('../../config/boot',  __FILE__)
 require 'rails/commands'
