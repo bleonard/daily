@@ -11,3 +11,4 @@ config/deploy.rb
 Capfile
 .rvmrc
 config.ru
+*.gem
