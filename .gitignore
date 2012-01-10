@@ -10,3 +10,4 @@ files/*/*
 config/deploy.rb
 Capfile
 .rvmrc
+config.ru
