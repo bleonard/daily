@@ -29,6 +29,7 @@ end
 gem 'jquery-rails'
 
 gem 'delayed_job'
+gem 'delayed_job_active_record'
 
 group :development do
   gem 'thin'
