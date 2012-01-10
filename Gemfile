@@ -32,8 +32,6 @@ gem 'jquery-rails'
 
 gem 'delayed_job'
 
-gem 'capistrano'
-
 group :development do
   gem 'thin'
   gem 'ruby-debug'

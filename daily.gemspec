@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rails', "~> 3.1.1"
   s.add_dependency 'json'
+  s.add_dependency 'jquery-rails'
   
   s.add_dependency 'devise'
   s.add_dependency 'declarative_authorization'
@@ -45,6 +46,7 @@ Gem::Specification.new do |s|
   require 'rubygems'
   require 'rails/all'
   require 'json'
+  require 'jquery-rails'
   
   require 'devise'
   require 'declarative_authorization'
