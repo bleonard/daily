@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'inherited_resources'
   s.add_dependency 'simple_form'
   
+  s.add_dependency 'delayed_job'
   
   s.add_dependency 'ruport'
   s.add_dependency 'ruport-util'
@@ -39,5 +40,22 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'launchy'
   s.add_development_dependency 'timecop'
   s.add_development_dependency 'rspec-rails'
-  s.add_development_dependency "sqlite3"
+  s.add_development_dependency 'sqlite3'
+  
+  require 'rubygems'
+  require 'rails/all'
+  require 'json'
+  
+  require 'devise'
+  require 'declarative_authorization'
+  require 'inherited_resources'
+  require 'simple_form'
+  
+  require 'delayed_job'
+  
+  require 'ruport'
+  require 'ruport/util'
+  
+  require 'dbi'
+  require 'dbd/mysql'
 end
