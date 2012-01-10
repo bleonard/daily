@@ -1,4 +1,4 @@
-Daily::Application.routes.draw do
+Rails.application.routes.draw do
   
   scope "/#{DailyConfig.subdirectory}" do
     

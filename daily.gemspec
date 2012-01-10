@@ -16,8 +16,28 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.mdown"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 3.1.1"
-  # s.add_dependency "jquery-rails"
+  s.add_dependency 'rails', "~> 3.1.1"
+  s.add_dependency 'json'
+  
+  s.add_dependency 'devise'
+  s.add_dependency 'declarative_authorization'
+  s.add_dependency 'inherited_resources'
+  s.add_dependency 'simple_form'
+  
+  
+  s.add_dependency 'ruport'
+  s.add_dependency 'ruport-util'
 
+  s.add_dependency 'dbi'
+  s.add_dependency 'dbd-mysql'
+  
+  s.add_development_dependency 'database_cleaner'
+  s.add_development_dependency 'mocha'
+  s.add_development_dependency 'shoulda'
+  s.add_development_dependency 'factory_girl_rails'
+  s.add_development_dependency 'capybara'
+  s.add_development_dependency 'launchy'
+  s.add_development_dependency 'timecop'
+  s.add_development_dependency 'rspec-rails'
   s.add_development_dependency "sqlite3"
 end
