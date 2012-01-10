@@ -17,8 +17,6 @@ gem 'ruport-util', :require => 'ruport/util'
 gem 'dbi'
 gem 'dbd-mysql'
 
-gem 'unicorn'
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -31,8 +29,6 @@ end
 gem 'jquery-rails'
 
 gem 'delayed_job'
-
-gem 'capistrano'
 
 group :development do
   gem 'thin'

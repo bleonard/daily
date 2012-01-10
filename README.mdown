@@ -2,7 +2,7 @@
 
 This Rails 3.1 application is about keeping reports on your application up to date without overloading your database.
 
-* Execute and SQL query every hour and ptionally run some code to transform it a bit
+* Execute and SQL query every hour and optionally run some code to transform it a bit
 * People can create reports in various formats (csv, json, pdf, etc) from that with another optional transform
 * These reports are saved at a public (albeit crazy-long) URL for linking from dashboards or your application
 

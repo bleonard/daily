@@ -1,5 +1,5 @@
 require File.expand_path('../boot', __FILE__)
-require File.expand_path('../../lib/daily_config', __FILE__)
+require File.expand_path('../../lib/daily/daily_config', __FILE__)
 
 require 'rails/all'
 
@@ -18,7 +18,7 @@ module Daily
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += %W(#{config.root}/lib/daily)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -46,11 +46,6 @@ module Daily
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-    
-    config.generators do |g|
-      g.test_framework :rspec, :fixture => true
-      g.fixture_replacement :factory_girl, :dir => 'spec/factories'
-    end
     
     DailyConfig.config_init(config)
   end
