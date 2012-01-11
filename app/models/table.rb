@@ -8,15 +8,15 @@ class Table < ActiveRecord::Base
   
   validates_presence_of :user
   validates_unique_presence_of :name
-  validates_stripped_presence_of :data
-  validates_stripped_presence_of :data_type
+  validates_stripped_presence_of :metric_data
+  validates_stripped_presence_of :metric
 
-  validate :data_type_known
+  validate :metric_known
   
   serialize :column_names, Array
   
   def sql?
-    data_type == "sql"
+    metric == "SqlQuery"
   end
   
   def result
@@ -48,18 +48,26 @@ class Table < ActiveRecord::Base
       out.gsub("\n", "<br/>").html_safe
     end
   end
+  
+  def metric_name
+    return "" if metric.blank?
+    begin
+      metric.constantize.display_name
+    rescue Exception => e
+      return "#{metric} (unknown)"
+    end
+  end
     
   protected
-  def data_type_known
-    return if data_type.blank?
+  def metric_known
+    return if metric.blank?
     unless sql?
-      errors.add(:data_type, "is not known")
+      errors.add(:metric, "is not known")
     end
   end
   
   def fetch_data
-    return Ruport::Query.new(data).result if sql?
-    Ruport::Data::Table.new
+    metric.constantize.new(metric_data).result
   end
   
 end

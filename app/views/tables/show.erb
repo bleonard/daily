@@ -7,7 +7,7 @@
 <hr/>
 
 <h6>User: <%= "#{@table.user.email}" %></h6>
-<h6>Type: <%= "#{@table.data_type}" %></h6>
+<h6>Type: <%= "#{@table.metric_name}" %></h6>
 <h6>Running time: <%= table_time_run(@table) %></h6>
 <%= content_tag(:p, link_to("Edit", edit_table_path(@table))) if permitted_to? :edit, @table %>
 
@@ -30,6 +30,6 @@
 
 <hr/>
 
-<%= simple_format(@table.data) %>
+<%= simple_format(@table.metric_data) %>
 
 <%= transform_display(@table) %>

@@ -5,25 +5,27 @@ describe Table do
   it { should have_many :reports }
   it { should validate_presence_of :user }
   it { should validate_presence_of :name }
-  it { should validate_presence_of :data }
-  it { should validate_presence_of :data_type }
+  it { should validate_presence_of :metric_data }
+  it { should validate_presence_of :metric }
   
   describe "Validations" do
     it "should have a valid data type" do
-      Table.new(:data_type => nil).should have(1).error_on(:data_type)
-      Table.new(:data_type => "").should have(1).error_on(:data_type)
-      Table.new(:data_type => "something").should have(1).error_on(:data_type)
-      Table.new(:data_type => "sql").should have(0).error_on(:data_type)
+      Table.new(:metric => nil).should have(1).error_on(:metric)
+      Table.new(:metric => "").should have(1).error_on(:metric)
+      Table.new(:metric => "something").should have(1).error_on(:metric)
+      Table.new(:metric => "sql").should have(1).error_on(:metric)
+      Table.new(:metric => "SqlQuery").should have(0).error_on(:metric)
     end
   end
 
   describe "#sql?" do
-    it "should return true if data_type is that" do
-      Table.new(:data_type => "sql").should be_sql
-      Table.new(:data_type => nil).should_not be_sql
-      Table.new(:data_type => "").should_not be_sql
-      Table.new(:data_type => "SQL").should_not be_sql
-      Table.new(:data_type => "else").should_not be_sql
+    it "should return true if metric is that" do
+      Table.new(:metric => "SqlQuery").should be_sql
+      Table.new(:metric => "sql").should_not be_sql
+      Table.new(:metric => nil).should_not be_sql
+      Table.new(:metric => "").should_not be_sql
+      Table.new(:metric => "SQL").should_not be_sql
+      Table.new(:metric => "else").should_not be_sql
     end
   end
   

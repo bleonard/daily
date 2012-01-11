@@ -6,7 +6,7 @@ FactoryGirl.define do
   factory :table do
     name { Factory.next(:table_name) }
     association :user
-    data_type "sql"
-    data "SELECT * FROM cities"
+    metric "SqlQuery"
+    metric_data "SELECT * FROM cities"
   end
 end

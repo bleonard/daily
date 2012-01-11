@@ -12,7 +12,7 @@ describe "Adding Tables" do
     current_path.should == '/tables/new'
     
     fill_in("Name", :with => "My Table")
-    fill_in("Data", :with =>"Something")
+    fill_in("Metric data", :with =>"Something")
     
     click_button("Create Table")
     
@@ -33,7 +33,7 @@ describe "Adding Tables" do
     page.should have_content("has already been taken")
     
     fill_in("Name", :with => "whatever2")
-    fill_in("Data", :with =>"Something")
+    fill_in("Metric data", :with =>"Something")
     
     click_button("Create Table")
     

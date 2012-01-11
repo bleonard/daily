@@ -13,7 +13,7 @@ describe "Applying Transforms" do
     visit new_table_path
     
     fill_in("Name", :with => "My Table")
-    fill_in("Data", :with =>"Something")
+    fill_in("Metric data", :with =>"Something")
     select("Column Filter", :from =>"Transform")
     fill_in("Transform json", :with =>'{ "columns":["first_column","third_column"] }')
     

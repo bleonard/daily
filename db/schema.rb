@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111214020029) do
+ActiveRecord::Schema.define(:version => 20120111054115) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20111214020029) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "report_id"
+    t.string   "queue"
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
@@ -46,8 +47,8 @@ ActiveRecord::Schema.define(:version => 20111214020029) do
 
   create_table "tables", :force => true do |t|
     t.integer  "user_id"
-    t.text     "data"
-    t.string   "data_type"
+    t.text     "metric_data"
+    t.string   "metric"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
