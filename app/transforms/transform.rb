@@ -1,6 +1,6 @@
 class Transform
   def self.transforms
-    [ColumnFilter, MovingAverage]
+    subclasses
   end
   
   def self.display_name
