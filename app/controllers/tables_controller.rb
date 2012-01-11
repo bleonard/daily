@@ -1,6 +1,11 @@
 class TablesController < InheritedResources::Base
   filter_resource_access
 
+  def new
+    build_resource.metric = "SqlQuery"
+    new!
+  end
+  
   def create
     build_resource.user = current_user
     create!
