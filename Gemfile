@@ -30,6 +30,7 @@ gem 'jquery-rails'
 
 gem 'delayed_job'
 gem 'delayed_job_active_record'
+gem 'daemons'
 
 group :development do
   gem 'thin'

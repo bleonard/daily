@@ -42,6 +42,9 @@ module DailyConfig
                              :dsn => "dbi:#{db['adapter'].camelize}:database=#{db['database']};host=#{db['host']}", 
                              :user => "#{db['username']}",
                              :password => "#{db['password']}"
+                             
+    require File.expand_path('../activemetric', __FILE__)
+    ActiveMetric::Base.establish_connection db
   end
   
   def config_init(config)
@@ -54,6 +57,12 @@ module DailyConfig
     Dir[Rails.root.join("app/transforms/*")].each { |f| require_dependency f }
     Dir[Rails.root.join("app/formatters/*")].each { |f| require_dependency f }
     Dir[Rails.root.join("app/metrics/*")].each    { |f| require_dependency f }
+
+    if defined? Daily::Engine
+      Dir[Daily::Engine.root.join("app/transforms/*")].each { |f| require_dependency f }
+      Dir[Daily::Engine.root.join("app/formatters/*")].each { |f| require_dependency f }
+      Dir[Daily::Engine.root.join("app/metrics/*")].each    { |f| require_dependency f }
+    end
   end
   
 end
