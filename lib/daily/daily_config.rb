@@ -2,8 +2,6 @@ module DailyConfig
   extend self
   
   def set_root(root)
-    puts "here it is.........."
-    puts root
     @root = root
   end
   def set_env(env)
@@ -33,8 +31,12 @@ module DailyConfig
     hash['subdirectory'] || env_hash['subdirectory'] || ""
   end
   
+  def database_config
+    env_hash['database']
+  end
+  
   def database_init
-    db = env_hash['database']
+    db = database_config
     return if db.empty?
     Ruport::Query.add_source :default,
                              :dsn => "dbi:#{db['adapter'].camelize}:database=#{db['database']};host=#{db['host']}", 
