@@ -1,5 +1,9 @@
 class GenerateReportJob < Struct.new(:report_id, :requeue)
 
+  def enqueue(job)
+    job.report_id = self.report_id
+  end
+
   def report
     @report ||= Report.find_by_id(report_id)
   end
