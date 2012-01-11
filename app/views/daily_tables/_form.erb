@@ -1,4 +1,4 @@
-<%= simple_form_for @table do |f| %>
+<%= simple_form_for @daily_table do |f| %>
   <%= f.input :name %>
   
   <%= f.input :metric, :collection => Metric.metrics, :label_method => :display_name, :value_method => :name, :include_blank => false %>

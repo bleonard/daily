@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Report do
+describe DailyReport do
   it { should belong_to :user }
   it { should belong_to :table }
   it { should validate_presence_of :user }
@@ -10,7 +10,7 @@ describe Report do
   
   describe "filenames" do
     before do
-      Report.any_instance.stubs(:guid_generate).returns("1234")
+      DailyReport.any_instance.stubs(:guid_generate).returns("1234")
     end
     it "should generate a filename on create" do
       report = Factory.build(:report, :formatter => "csv")
@@ -78,20 +78,20 @@ describe Report do
   
   describe "url" do
     before do
-      @report = Report.new(:filename => "file.csv")
-      @report.table = Table.new(:guid => "table_id")
+      @daily_report = DailyReport.new(:filename => "file.csv")
+      @daily_report.table = DailyTable.new(:guid => "table_id")
     end
     it "should take the root" do
-      @report.url("http://www.example.com").should == "http://www.example.com/files/table_id/file.csv"
+      @daily_report.url("http://www.example.com").should == "http://www.example.com/files/table_id/file.csv"
     end
     it "should take the root with slash" do
-      @report.url("http://www.example.com/").should == "http://www.example.com/files/table_id/file.csv"
+      @daily_report.url("http://www.example.com/").should == "http://www.example.com/files/table_id/file.csv"
     end
     it "should take a subdir" do
-      @report.url("http://www.example.com/test").should == "http://www.example.com/test/files/table_id/file.csv"
+      @daily_report.url("http://www.example.com/test").should == "http://www.example.com/test/files/table_id/file.csv"
     end
     it "should take a subdir with a slash" do
-      @report.url("http://www.example.com/test/").should == "http://www.example.com/test/files/table_id/file.csv"
+      @daily_report.url("http://www.example.com/test/").should == "http://www.example.com/test/files/table_id/file.csv"
     end
   end
   

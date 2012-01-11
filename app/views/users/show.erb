@@ -1,4 +1,0 @@
-<% title "#{@user.email}" %>
-<%= content_tag(:p, link_to("Update Account", edit_user_path(@user))) if permitted_to? :edit, @user %>
-
-<%= render 'users/items', :user => @user %>

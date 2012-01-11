@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
   scope "/#{DailyConfig.subdirectory}" do
     
-    devise_for :users, :only => :sessions do
+    devise_for :users, :only => :sessions, :class_name => "DailyUser" do
       get "login", :to => "devise/sessions#new"
       get "logout", :to => "devise/sessions#destroy"
       root :to => "devise/sessions#new"
@@ -10,18 +10,18 @@ Rails.application.routes.draw do
   
     match 'home' => 'main#home', :as => :user_root
   
-    resources :tables do
-      resources :reports do
+    resources :daily_tables, :path => "tables" do
+      resources :daily_reports, :path => "reports" do
         member do
           post :generate
         end
       end
     end
   
-    resources :reports, :only => :index
+    resources :daily_reports, :path => "reports", :only => :index
   
-    resources :users
-    get "account", :to => "users#edit"
+    resources :daily_users, :path => "users"
+    get "account", :to => "daily_users#edit"
     
     get "files/*path", :to => "files#show", :format => false
   end

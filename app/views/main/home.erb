@@ -1,4 +1,4 @@
 <% title "Welcome #{current_user.email}" %>
 <%= content_tag(:p, link_to("Update Account", account_path)) if permitted_to? :account, current_user %>
 
-<%= render 'users/items', :user => current_user %>
+<%= render 'daily_users/items', :user => current_user %>

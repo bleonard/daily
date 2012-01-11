@@ -3,7 +3,7 @@ require 'spec_helper'
 describe GenerateReportJob do
   it "should generate the file" do
     report = Factory(:report)
-    Report.any_instance.expects(:generate!)
+    DailyReport.any_instance.expects(:generate!)
     job = GenerateReportJob.new(report.id, true)
     job.perform
   end

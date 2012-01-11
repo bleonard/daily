@@ -3,7 +3,7 @@ FactoryGirl.define do
     "test#{n}@example.com"
   end
   
-  factory :user do
+  factory :user, :class => DailyUser do
     email { Factory.next(:user_email) }
     password "password"
   end

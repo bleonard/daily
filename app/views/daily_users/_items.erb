@@ -1,0 +1,8 @@
+<h3>Tables</h3>
+<p><%= link_to "New Table", new_daily_table_path if user == current_user && permitted_to?(:new, :daily_tables) %></p>
+<%= render "daily_tables/list", :list => user.tables %>
+
+<% if user.reports.size > 0 %>
+  <h3>Reports</h3>
+  <%= render "daily_reports/list", :list => user.reports %>
+<% end %>

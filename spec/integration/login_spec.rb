@@ -3,13 +3,13 @@ require 'integration_helper'
 describe "Login" do
   
   before do
-    @user = Factory(:user)
+    @daily_user = Factory(:user)
   end
   
   context "not signed in" do
     it "should allow login" do
       visit '/'
-      fill_in("Email", :with => @user.email)
+      fill_in("Email", :with => @daily_user.email)
       fill_in("Password", :with => "password")
       click_button("Sign in")
 
@@ -19,7 +19,7 @@ describe "Login" do
 
     it "should show validations" do
       visit '/'
-      fill_in("Email", :with => @user.email)
+      fill_in("Email", :with => @daily_user.email)
       fill_in("Password", :with => "wrong!")
       click_button("Sign in")
 
@@ -36,7 +36,7 @@ describe "Login" do
 
   context "signed in" do
     before do
-      login_as @user
+      login_as @daily_user
     end
     
     it "should redirect to home from login" do

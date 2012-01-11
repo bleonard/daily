@@ -7,8 +7,8 @@ describe "User" do
   
   describe "Permissions" do
     before do
-      @user = Factory(:user)
-      login_as @user
+      @daily_user = Factory(:user)
+      login_as @daily_user
     end
     
     it "should not able able to see all Tables" do
@@ -31,9 +31,9 @@ describe "User" do
       page.should have_content("The page you were looking for doesn't exist.")
       page.should have_no_content u.email
       
-      visit "/users/#{@user.id}/edit"
+      visit "/users/#{@daily_user.id}/edit"
       page.should have_no_content("The page you were looking for doesn't exist.")
-      page.should have_content @user.email
+      page.should have_content @daily_user.email
     end
     
     it "should not allow the creation of a user" do
@@ -44,8 +44,8 @@ describe "User" do
   
   describe "Account Management" do
     before do
-      @user = Factory(:user, :email => "james@example.com")
-      login_as @user
+      @daily_user = Factory(:user, :email => "james@example.com")
+      login_as @daily_user
     end
     
     it "should allow editing of email and password" do

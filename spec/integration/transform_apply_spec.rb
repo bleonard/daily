@@ -2,15 +2,15 @@ require 'integration_helper'
 
 describe "Applying Transforms" do
   before do
-    @user = Factory(:user)
-    login_as @user
+    @daily_user = Factory(:user)
+    login_as @daily_user
   end
 
   it "should be available on a table" do
     data = Ruport::Data::Table.new(:data => [[1,2,3], [7,8,9]], :column_names => %w[first_column second_column third_column])
-    Table.any_instance.stubs(:fetch_data).returns(data)
+    DailyTable.any_instance.stubs(:fetch_data).returns(data)
     
-    visit new_table_path
+    visit new_daily_table_path
     
     fill_in("Name", :with => "My Table")
     fill_in("Metric data", :with =>"Something")

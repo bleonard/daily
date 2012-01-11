@@ -10,7 +10,55 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120111054115) do
+ActiveRecord::Schema.define(:version => 20120111081745) do
+
+  create_table "daily_reports", :force => true do |t|
+    t.string   "name"
+    t.string   "filename"
+    t.integer  "table_id"
+    t.integer  "user_id"
+    t.string   "formatter"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "generate_started_at"
+    t.datetime "generate_ended_at"
+    t.string   "transform"
+    t.text     "transform_data"
+    t.text     "formatter_data"
+  end
+
+  create_table "daily_tables", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "metric_data"
+    t.string   "metric"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.string   "guid"
+    t.integer  "fetch_time_in_seconds"
+    t.text     "column_names"
+    t.string   "transform"
+    t.text     "transform_data"
+  end
+
+  create_table "daily_users", :force => true do |t|
+    t.string   "email",                                 :default => "", :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                         :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "admin"
+  end
+
+  add_index "daily_users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "daily_users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -29,53 +77,5 @@ ActiveRecord::Schema.define(:version => 20120111054115) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
   add_index "delayed_jobs", ["report_id"], :name => "index_delayed_jobs_on_report_id"
-
-  create_table "reports", :force => true do |t|
-    t.string   "name"
-    t.string   "filename"
-    t.integer  "table_id"
-    t.integer  "user_id"
-    t.string   "formatter"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "generate_started_at"
-    t.datetime "generate_ended_at"
-    t.string   "transform"
-    t.text     "transform_data"
-    t.text     "formatter_data"
-  end
-
-  create_table "tables", :force => true do |t|
-    t.integer  "user_id"
-    t.text     "metric_data"
-    t.string   "metric"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "name"
-    t.string   "guid"
-    t.integer  "fetch_time_in_seconds"
-    t.text     "column_names"
-    t.string   "transform"
-    t.text     "transform_data"
-  end
-
-  create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "admin"
-  end
-
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end

@@ -3,7 +3,7 @@ FactoryGirl.define do
     "Table #{n}"
   end
   
-  factory :table do
+  factory :table, :class => DailyTable do
     name { Factory.next(:table_name) }
     association :user
     metric "SqlQuery"

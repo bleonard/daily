@@ -2,15 +2,15 @@ require 'integration_helper'
 
 describe "Adding Reports" do
   before do
-    @user = Factory(:user)
-    login_as @user
+    @daily_user = Factory(:user)
+    login_as @daily_user
   end
   
   it "should be made from a table" do
-    table = Factory(:table, :user => @user, :name => "Something1")
+    table = Factory(:table, :user => @daily_user, :name => "Something1")
     table.id.should == 1
     
-    visit table_path(table)
+    visit daily_table_path(table)
     
     click_link "New report from this table"
     

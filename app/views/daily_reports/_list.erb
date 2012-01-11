@@ -2,7 +2,7 @@
   <ul>
     <% list.each do |report| %>
       <% if permitted_to? :show, report %>
-        <li><%= link_to report.name, table_report_path(report.table, report) %></li>
+        <li><%= link_to report.name, daily_table_daily_report_path(report.table, report) %></li>
       <% end %>
     <% end %>
   </ul>

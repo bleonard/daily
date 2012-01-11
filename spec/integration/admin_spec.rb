@@ -2,8 +2,8 @@ require 'integration_helper'
 
 describe "Admin" do
   before do
-    @user = Factory(:admin)
-    login_as @user
+    @daily_user = Factory(:admin)
+    login_as @daily_user
   end
   
   describe "Permissions" do
@@ -40,7 +40,7 @@ describe "Admin" do
       fill_in("Password", :with => "password")
       click_button("Create User")
       page.should have_content("User was successfully created.")
-      current_path.should == "/users/#{User.last.id}"
+      current_path.should == "/users/#{DailyUser.last.id}"
       page.should have_content("john@example.com")
     end
   end

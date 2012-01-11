@@ -2,4 +2,30 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  helpers:
+    submit:
+      daily_user:
+        create: "Create User"
+        update: "Update User"
+      daily_report:
+        create: "Create Report"
+        update: "Update Report"
+      daily_table:
+        create: "Create Table"
+        update: "Update Table"
+  flash:
+    daily_users:
+      create:
+        notice: "User was successfully created."
+      update:
+        notice: "User was successfully updated."
+    daily_reports:
+      create:
+        notice: "Report was successfully created."
+      update:
+        notice: "Report was successfully updated."
+    daily_tables:
+      create:
+        notice: "Table was successfully created."
+      update:
+        notice: "Table was successfully updated."

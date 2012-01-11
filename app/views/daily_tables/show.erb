@@ -1,0 +1,35 @@
+<% title @daily_table.name %>
+
+<h3>Reports</h3>
+<p><%= link_to "New report from this table", new_daily_table_daily_report_path(@daily_table) if permitted_to? :report, @daily_table  %></p>
+<%= render "daily_reports/list", :list => @daily_table.reports %>
+
+<hr/>
+
+<h6>User: <%= "#{@daily_table.user.email}" %></h6>
+<h6>Type: <%= "#{@daily_table.metric_name}" %></h6>
+<h6>Running time: <%= table_time_run(@daily_table) %></h6>
+<%= content_tag(:p, link_to("Edit", edit_daily_table_path(@daily_table))) if permitted_to? :edit, @daily_table %>
+
+<% if @test_html %>
+  <p><%= link_to "Hide Table Output", daily_table_path(@daily_table) %></p>
+  <%= @test_html %>
+<% else %>
+  <p><%= link_to "See Table Output", daily_table_path(@daily_table, :test => true) %></p>
+  
+  <% if @daily_table.column_names and @daily_table.column_names.size > 0 %>
+    <table>
+      <tr>
+        <% @daily_table.column_names.each do |name| %>
+          <th><%= name %></th>
+        <% end %>
+      </tr>
+    </table>
+  <% end %>
+<% end %>
+
+<hr/>
+
+<%= simple_format(@daily_table.metric_data) %>
+
+<%= transform_display(@daily_table) %>

@@ -1,0 +1,14 @@
+<h3>Table: <%= link_to @daily_report.table.name, daily_table_path(@daily_report.table) %></h3>
+
+<%= simple_form_for [@daily_report.table, @daily_report] do |f| %>
+  <%= f.input :name %>
+  <%= f.input :filename unless @daily_report.new_record? %>
+  
+  <%= f.input :formatter, :collection => DailyReport.formatters %>
+  <%= f.input :formatter_json, :as => :text %>
+  
+  <%= f.input :transform, :collection => Transform.transforms, :label_method => :display_name, :value_method => :name %>
+  <%= f.input :transform_json, :as => :text %>
+  
+  <%= f.button :submit %>
+<% end %>

@@ -1,4 +1,4 @@
-class TablesController < InheritedResources::Base
+class DailyTablesController < InheritedResources::Base
   filter_resource_access
 
   def new
@@ -17,7 +17,7 @@ class TablesController < InheritedResources::Base
 
   def show
     show! do
-      @test_html = @table.test if params[:test]
+      @test_html = @daily_table.test if params[:test]
     end
   end
 

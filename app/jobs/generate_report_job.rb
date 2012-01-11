@@ -5,7 +5,7 @@ class GenerateReportJob < Struct.new(:report_id, :requeue)
   end
 
   def report
-    @report ||= Report.find_by_id(report_id)
+    @daily_report ||= DailyReport.find_by_id(report_id)
   end
 
   def perform

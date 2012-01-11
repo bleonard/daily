@@ -3,7 +3,7 @@ FactoryGirl.define do
     "Report #{n}"
   end
   
-  factory :report do
+  factory :report, :class => DailyReport do
     name { Factory.next(:report_name) }
     association :user
     association :table

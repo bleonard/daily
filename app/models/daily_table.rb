@@ -1,8 +1,11 @@
-class Table < ActiveRecord::Base
+class DailyTable < ActiveRecord::Base
   include SharedBehaviors
   
-  belongs_to :user
-  has_many :reports
+  belongs_to :user, :class_name => "DailyUser"
+  has_many :reports, :class_name => "DailyReport", :foreign_key => "table_id"
+  
+  # just easier with declarative auth to also have this one
+  has_many :daily_reports, :foreign_key => "table_id"
   
   generate_guid :guid
   

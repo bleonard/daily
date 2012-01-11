@@ -2,8 +2,8 @@ require 'integration_helper'
 
 describe "Adding Tables" do
   before do
-    @user = Factory(:user)
-    login_as @user
+    @daily_user = Factory(:user)
+    login_as @daily_user
   end
   
   it "should allow user to create a Table" do
@@ -22,7 +22,7 @@ describe "Adding Tables" do
   end
   
   it "should display validations and then work" do
-    Factory(:table, :name => "whatever1", :user => @user)
+    Factory(:table, :name => "whatever1", :user => @daily_user)
     
     visit "/tables/new"
     fill_in("Name", :with => "whatever1")

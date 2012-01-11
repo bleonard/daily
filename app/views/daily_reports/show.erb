@@ -1,0 +1,23 @@
+<% title @daily_report.name %>
+<h3>Table: <%= link_to @daily_report.table.name, daily_table_path(@daily_report.table) %></h3>
+
+<% if @daily_report.file_exists? %>
+  <h5>URL: <%= link_to @daily_report.url(root_url), @daily_report.url(root_url) %></h5>
+<% else %>
+  <h5>URL: <%= @daily_report.url(root_url) %></h5>
+<% end %>
+
+<h6>User: <%= "#{@daily_report.user.email}" %></h6>
+<h6>Running time: <%= report_time_run(@daily_report) %></h6>
+<h6>Last updated: <%= report_time_ago(@daily_report) %></h6>
+<h6>Next updated: <%= report_time_next(@daily_report) %></h6>
+<%= button_to "Queue Update Now", generate_daily_table_daily_report_path(@daily_report.table, @daily_report) if permitted_to? :generate, @daily_report %>
+
+<%= content_tag(:p, link_to("Edit", edit_daily_table_daily_report_path(@daily_report.table, @daily_report))) if permitted_to? :edit, @daily_report %>
+
+<%= formatter_display(@daily_report) %>
+
+<%= transform_display(@daily_report) %>
+
+<hr/>
+<%= report_error_html(@daily_report) %>

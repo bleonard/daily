@@ -1,8 +1,8 @@
-class Report < ActiveRecord::Base
+class DailyReport < ActiveRecord::Base
   include SharedBehaviors
-  belongs_to :user
-  belongs_to :table
-  has_many :jobs, :class_name => "::Delayed::Job"
+  belongs_to :user, :class_name => "DailyUser"
+  belongs_to :table, :class_name => "DailyTable"
+  has_many :jobs, :class_name => "::Delayed::Job", :foreign_key => "report_id"
   
   has_data :formatter
   
