@@ -1,8 +1,11 @@
 <%= simple_form_for @table do |f| %>
   <%= f.input :name %>
+  
+  <%= f.input :metric, :collection => Metric.metrics, :label_method => :display_name, :value_method => :name, :include_blank => false %>
   <%= f.input :metric_data %>
   
   <%= f.input :transform, :collection => Transform.transforms, :label_method => :display_name, :value_method => :name %>
   <%= f.input :transform_json, :as => :text %>
+  
   <%= f.button :submit %>
 <% end %>

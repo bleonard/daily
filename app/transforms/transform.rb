@@ -1,5 +1,6 @@
 class Transform
   def self.transforms
+    DailyConfig.load_classes if Rails.env.development?
     subclasses
   end
   

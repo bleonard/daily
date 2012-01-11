@@ -48,4 +48,10 @@ module DailyConfig
     end
   end
   
+  def load_classes
+    Dir[Rails.root.join("app/transforms/*")].each { |f| require_dependency f }
+    Dir[Rails.root.join("app/formatters/*")].each { |f| require_dependency f }
+    Dir[Rails.root.join("app/metrics/*")].each    { |f| require_dependency f }
+  end
+  
 end

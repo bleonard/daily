@@ -8,16 +8,10 @@ class Table < ActiveRecord::Base
   
   validates_presence_of :user
   validates_unique_presence_of :name
-  validates_stripped_presence_of :metric_data
   validates_stripped_presence_of :metric
 
-  validate :metric_known
-  
+  validate :metric_valid
   serialize :column_names, Array
-  
-  def sql?
-    metric == "SqlQuery"
-  end
   
   def result
     fetch
@@ -52,16 +46,21 @@ class Table < ActiveRecord::Base
   def metric_name
     return "" if metric.blank?
     begin
-      metric.constantize.display_name
+      return metric.constantize.display_name
     rescue Exception => e
       return "#{metric} (unknown)"
     end
   end
     
   protected
-  def metric_known
+  
+  def metric_valid
     return if metric.blank?
-    unless sql?
+    begin
+      metric.constantize.get_data_errors(metric_data).each do |message|
+        errors.add(:metric_data, message)
+      end
+    rescue Exception => e
       errors.add(:metric, "is not known")
     end
   end

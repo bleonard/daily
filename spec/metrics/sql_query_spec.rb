@@ -9,4 +9,13 @@ describe SqlQuery do
       SqlQuery.form_keys.should == []
     end
   end
+  
+  describe ".get_data_errors" do
+    it "should return error on blank" do
+      SqlQuery.get_data_errors("").should == ["can't be blank"]
+      SqlQuery.get_data_errors(nil).should == ["can't be blank"]
+      SqlQuery.get_data_errors("  ").should == ["can't be blank"]
+      SqlQuery.get_data_errors("something").should == []
+    end
+  end
 end

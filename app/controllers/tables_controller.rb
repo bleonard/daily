@@ -3,7 +3,6 @@ class TablesController < InheritedResources::Base
 
   def create
     build_resource.user = current_user
-    build_resource.metric = "SqlQuery"
     create!
   end
   

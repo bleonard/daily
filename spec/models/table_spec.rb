@@ -5,7 +5,6 @@ describe Table do
   it { should have_many :reports }
   it { should validate_presence_of :user }
   it { should validate_presence_of :name }
-  it { should validate_presence_of :metric_data }
   it { should validate_presence_of :metric }
   
   describe "Validations" do
@@ -16,19 +15,19 @@ describe Table do
       Table.new(:metric => "sql").should have(1).error_on(:metric)
       Table.new(:metric => "SqlQuery").should have(0).error_on(:metric)
     end
-  end
-
-  describe "#sql?" do
-    it "should return true if metric is that" do
-      Table.new(:metric => "SqlQuery").should be_sql
-      Table.new(:metric => "sql").should_not be_sql
-      Table.new(:metric => nil).should_not be_sql
-      Table.new(:metric => "").should_not be_sql
-      Table.new(:metric => "SQL").should_not be_sql
-      Table.new(:metric => "else").should_not be_sql
+    
+    it "should require data if needed" do
+      Table.new(:metric => "SqlQuery").should have(1).error_on(:metric_data)
+      Table.new(:metric => "SqlQuery", :metric_data => "something").should have(0).error_on(:metric_data)
+      
+      SqlQuery.stubs(:get_data_errors)
+      Table.new(:metric => "SqlQuery").should have(0).error_on(:metric_data)
+      
+      SqlQuery.expects(:get_data_errors).returns ["one", "two"]
+      Table.new(:metric => "SqlQuery").should have(2).error_on(:metric_data)
     end
   end
-  
+
   describe "uniqueness" do
     it "should cehck uniqueness" do
       other = Factory(:table, :name => "Whatever")
