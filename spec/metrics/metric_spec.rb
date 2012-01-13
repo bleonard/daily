@@ -1,5 +1,26 @@
 require 'spec_helper'
 
+class TestMetric1 < Metric
+  def column_names
+    ["one", "two"]
+  end
+  def add_rows(table)
+    table << [1, 2]
+  end
+end
+
+class TestMetric2 < Metric
+  def add_rows(table)
+    table << [1, 2]
+  end
+end
+
+class TestMetric3 < Metric
+  def column_names
+    ["one", "two"]
+  end
+end
+
 describe Metric do  
   describe "form properties" do
     it ".display_name" do
@@ -22,8 +43,25 @@ describe Metric do
   end
   
   describe "#result" do
-    it "should raise error" do
-      lambda{ Metric.new.result }.should raise_error
+    it "should default to empty" do
+      table = Metric.new("").result
+      table.size.should == 0
+      table.column_names.should == []
+    end
+    it "make a table with column names" do
+      table = TestMetric1.new("").result
+      table.size.should == 1
+      table.column_names.should == ["one", "two"]
+    end
+    it "make a table without column names" do
+      table = TestMetric2.new("").result
+      table.size.should == 1
+      table.column_names.should == []
+    end
+    it "should make a talble without data" do
+      table = TestMetric3.new("").result
+      table.size.should == 0
+      table.column_names.should == ["one", "two"]
     end
   end
 end

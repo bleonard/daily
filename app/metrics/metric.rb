@@ -34,8 +34,59 @@ class Metric
     val = settings[key.to_sym]
     val.blank? ? default : val
   end
+  
+  def before_table
+    
+  end
+  
+  def before_creation
+    
+  end
+  
+  def column_names
+    []
+  end
 
+  def table_options
+    out = {}
+    cols = self.column_names
+    out[:column_names] = cols if cols and not cols.empty?
+    out
+  end
+  
+  def create_table
+    Ruport::Data::Table.new(table_options)
+  end
+  
+  def after_creation(table)
+    
+  end
+  
+  def before_rows(table)
+    
+  end
+  
+  def add_rows(table)
+    
+  end
+  
+  def after_rows(table)
+    
+  end
+  
+  def after_table(table)
+    
+  end
+  
   def result
-    raise("Metrics must override result")
+    before_table
+    before_creation
+    out = create_table
+    after_creation(out)
+    before_rows(out)
+    add_rows(out)
+    after_rows(out)
+    after_table(out)
+    out
   end
 end
