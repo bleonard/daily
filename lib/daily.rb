@@ -15,7 +15,6 @@ require 'ruport'
 require 'ruport/util'
 
 require 'dbi'
-require 'dbd/mysql'
 
 require "daily/activemetric"
 
