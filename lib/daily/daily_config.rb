@@ -54,14 +54,15 @@ module DailyConfig
   end
   
   def load_classes
-    Dir[Rails.root.join("app/transforms/*")].each { |f| require_dependency f }
-    Dir[Rails.root.join("app/formatters/*")].each { |f| require_dependency f }
-    Dir[Rails.root.join("app/metrics/*")].each    { |f| require_dependency f }
+    Dir[Rails.root.join("app/transforms/**/*.rb")].each { |f| require_dependency f }
+    Dir[Rails.root.join("app/formatters/**/*.rb")].each { |f| require_dependency f }
+    Dir[Rails.root.join("app/metrics/**/*.rb")].each    { |f| require_dependency f }
 
     if defined? Daily::Engine
-      Dir[Daily::Engine.root.join("app/transforms/*")].each { |f| require_dependency f }
-      Dir[Daily::Engine.root.join("app/formatters/*")].each { |f| require_dependency f }
-      Dir[Daily::Engine.root.join("app/metrics/*")].each    { |f| require_dependency f }
+      Dir[Daily::Engine.root.join("app/transforms/**/*.rb")].each { |f| require_dependency f }
+      Dir[Daily::Engine.root.join("app/formatters/**/*.rb")].each { |f| require_dependency f }
+      Dir[Daily::Engine.root.join("app/metrics/**/*.rb")].each    { |f| require_dependency f }
+      Dir[Daily::Engine.root.join("lib/**/*.rb")].each            { |f| require_dependency f }
     end
   end
   
