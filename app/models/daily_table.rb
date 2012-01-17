@@ -2,7 +2,7 @@ class DailyTable < ActiveRecord::Base
   include SharedBehaviors
   
   belongs_to :user, :class_name => "DailyUser"
-  has_many :reports, :class_name => "DailyReport", :foreign_key => "table_id"
+  has_many :reports, :class_name => "DailyReport", :foreign_key => "table_id", :dependent => :destroy
   
   # just easier with declarative auth to also have this one
   has_many :daily_reports, :foreign_key => "table_id"
@@ -53,6 +53,24 @@ class DailyTable < ActiveRecord::Base
     rescue Exception => e
       return "#{metric} (unknown)"
     end
+  end
+  
+  def archive
+    transaction do
+      self.archived = true
+      reports.each do |report|
+        report.archive!
+      end
+      save!
+    end
+    return self
+    rescue ActiveRecord::RecordInvalid
+      return nil
+  end
+  
+  def unarchive
+    self.archived = false
+    save ? self : nil
   end
     
   protected

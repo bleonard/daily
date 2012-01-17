@@ -16,7 +16,10 @@ class DailyReport < ActiveRecord::Base
   before_validation :filename_extension_update
 
   after_save :ensure_job
-  after_save :queue_now!, :if => :filename_changed?
+  after_save :queue_now!, :if => :queue_job_now?
+  
+  after_save :delete_file!, :if => :archived?
+  after_destroy :delete_file!
   
   def self.formatters
     Ruport::Controller::Table.formats.keys
@@ -41,6 +44,11 @@ class DailyReport < ActiveRecord::Base
   
   def file_exists?
     File.file?(localfile)
+  end
+  
+  def delete_file!
+    File.delete(localfile) if File.file?(localfile)
+    true
   end
   
   def generate!
@@ -80,7 +88,27 @@ class DailyReport < ActiveRecord::Base
     jobs.by_priority.first
   end
 
+  def archive
+    self.archived = true
+    save ? self : nil
+  end
+  
+  def archive!
+    self.archived = true
+    save!
+  end
+  
+  def unarchive
+    self.archived = false
+    save ? self : nil
+  end
+  
   protected
+  
+  def queue_job_now?
+    return false if archived?
+    filename_changed? or archived_changed?
+  end
 
   def guid_append
     return "" if formatter.blank?
@@ -91,10 +119,8 @@ class DailyReport < ActiveRecord::Base
     Time.now + 1.hour
   end
   
-  protected
-  
   def ensure_job
-    queue_next! if jobs.reload.size == 0
+    queue_next! if not archived? and jobs.reload.size == 0
     true
   end
   

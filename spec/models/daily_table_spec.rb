@@ -84,5 +84,48 @@ describe DailyTable do
     end
   end
 
+  describe "#destroy" do
+    it "should take the reports with it" do
+       report = Factory(:report)
+       table = report.table
+       
+       DailyReport.any_instance.expects(:delete_file!)
+       
+       table.destroy.should == table
+       DailyTable.find_by_id(table.id).should be_nil
+       DailyReport.find_by_id(report.id).should be_nil
+    end
+  end
+  
+  describe "#archive" do
+    it "change the boolean to archived" do
+      report = Factory(:report)
+      table = report.table
+       
+      report.should_not be_archived
+      DailyReport.any_instance.expects(:delete_file!)
+       
+      table.should_not be_archived
+      table.archive.should == table
+      table.reload.should be_archived
+      
+      report.reload.should be_archived
+    end
+  end
+  
+  describe "#unarchive" do
+    it "should change the boolean to false" do
+      report = Factory(:report)
+      table = report.table
+      table.archive
+      
+      table.reload.should be_archived
+      report.reload.should be_archived
+      
+      table.unarchive.should_not be_nil
+      table.reload.should_not be_archived
+      report.reload.should be_archived
+    end
+  end
   
 end

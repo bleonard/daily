@@ -177,4 +177,37 @@ describe DailyReport do
       end
     end
   end
+  
+  describe "#destroy" do
+    it "delete the file" do
+       report = Factory(:report)
+       report.expects(:delete_file!)
+       report.destroy.should == report
+    end
+  end
+  
+  describe "#archive" do
+    it "change the boolean to archived" do
+      report = Factory(:report)
+      report.expects(:delete_file!)
+      report.archive.should == report
+      report.reload.should be_archived
+    end
+  end
+  
+  describe "#unarchive" do
+    it "should schedule a job to regenerate the file" do
+      report = Factory(:report)
+      report.archive
+      report.reload.should be_archived
+      
+      report.expects(:queue_now!).once
+      report.expects(:queue_next!).once
+      
+      Delayed::Job.delete_all
+      
+      report.unarchive.should_not be_nil
+    end
+  end
+  
 end

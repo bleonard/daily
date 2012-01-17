@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120111081745) do
+ActiveRecord::Schema.define(:version => 20120117020222) do
 
   create_table "daily_reports", :force => true do |t|
     t.string   "name"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20120111081745) do
     t.string   "transform"
     t.text     "transform_data"
     t.text     "formatter_data"
+    t.boolean  "archived"
   end
 
   create_table "daily_tables", :force => true do |t|
@@ -39,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20120111081745) do
     t.text     "column_names"
     t.string   "transform"
     t.text     "transform_data"
+    t.boolean  "archived",              :default => false
   end
 
   create_table "daily_users", :force => true do |t|
