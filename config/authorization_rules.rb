@@ -11,6 +11,21 @@ authorization do
       if_attribute :user => is { user }
     end
     
+    has_permission_on :daily_tables, :to => [:archive, :archiveit], :join_by => :and do
+      if_permitted_to :update
+      if_attribute :archived? => is_not { true }
+    end
+    
+    has_permission_on :daily_tables, :to => [:unarchiveit], :join_by => :and do
+      if_permitted_to :update
+      if_attribute :archived? => is { true }
+    end
+    
+    has_permission_on :daily_tables, :to => [:destroy], :join_by => :and do
+      if_permitted_to :update
+      if_attribute :has_reports? => is { false }
+    end
+    
     has_permission_on :daily_tables, :to => [:report] do
       if_permitted_to :show
     end

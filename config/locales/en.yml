@@ -29,3 +29,5 @@ en:
         notice: "Table was successfully created."
       update:
         notice: "Table was successfully updated."
+      destroy:
+        notice: "Table has been deleted."

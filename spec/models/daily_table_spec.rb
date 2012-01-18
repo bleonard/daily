@@ -128,4 +128,14 @@ describe DailyTable do
     end
   end
   
+  describe "#has_reports?" do
+    it "returns true if there are reports" do
+      report = Factory(:report)
+      report.table.has_reports?.should == true
+    end
+    it "returns false if there are no reports" do
+      Factory(:table).has_reports?.should == false
+    end
+  end
+  
 end

@@ -73,6 +73,10 @@ class DailyTable < ActiveRecord::Base
     save ? self : nil
   end
     
+  def has_reports?
+    reports.size > 0
+  end  
+  
   protected
   
   def metric_valid

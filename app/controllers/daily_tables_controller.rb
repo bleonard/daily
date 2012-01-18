@@ -21,4 +21,26 @@ class DailyTablesController < InheritedResources::Base
     end
   end
 
+  def archiveit
+    if @daily_table.archive
+      flash[:notice] = "Table has been archived."
+    else
+      flash[:alert] = "Table has not been archived."
+    end
+    redirect_to @daily_table
+  end
+  
+  def unarchiveit
+    if @daily_table.unarchive
+      flash[:notice] = "Table has been unarchived."
+    else
+      flash[:alert] = "Table has not been unarchived."
+    end
+    redirect_to @daily_table
+  end
+
+  def destroy
+    destroy! { user_root_path }
+  end
+
 end
