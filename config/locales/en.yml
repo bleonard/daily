@@ -24,6 +24,8 @@ en:
         notice: "Report was successfully created."
       update:
         notice: "Report was successfully updated."
+      destroy:
+        notice: "Report has been deleted."
     daily_tables:
       create:
         notice: "Table was successfully created."

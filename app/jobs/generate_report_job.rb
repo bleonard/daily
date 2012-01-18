@@ -10,6 +10,7 @@ class GenerateReportJob < Struct.new(:report_id, :requeue)
 
   def perform
     return if report.nil?
+    return if report.archived?
     report.generate!
     report.queue_next! if requeue
   end

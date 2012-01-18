@@ -17,10 +17,5 @@
 
 <hr/>
 
-<%= simple_form_for @daily_table, :url => archiveit_daily_table_path(@daily_table), :method => :post do |f| %>
-  <%= f.submit "Archive" %>
-<% end if permitted_to? :archiveit, @daily_table %>
-
-<%= simple_form_for @daily_table, :url => daily_table_path(@daily_table), :method => :delete do |f| %>
-  <%= f.submit "Delete" %>
-<% end if permitted_to? :destroy, @daily_table %>
+<%= button_to "Archive", archiveit_daily_table_path(@daily_table) if permitted_to? :archiveit, @daily_table %>
+<%= button_to "Delete", daily_table_path(@daily_table), :method => :delete if permitted_to? :destroy, @daily_table %>

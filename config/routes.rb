@@ -12,13 +12,15 @@ Rails.application.routes.draw do
   
     resources :daily_tables, :path => "tables" do
       member do
-        get 'archive'
-        post 'archiveit'
-        post 'unarchiveit'
+        get :archive
+        post :archiveit
+        post :unarchiveit
       end
       resources :daily_reports, :path => "reports" do
         member do
           post :generate
+          post :archiveit
+          post :unarchiveit
         end
       end
     end

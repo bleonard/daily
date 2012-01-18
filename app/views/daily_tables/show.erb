@@ -11,12 +11,8 @@
 <h6>Type: <%= "#{@daily_table.metric_name}" %></h6>
 <h6>Running time: <%= table_time_run(@daily_table) %></h6>
 
-<%= simple_form_for @daily_table, :url => daily_table_path(@daily_table), :method => :delete do |f| %>
-  <%= f.submit "Delete" %>
-<% end if permitted_to? :destroy, @daily_table %>
-<%= simple_form_for @daily_table, :url => unarchiveit_daily_table_path(@daily_table), :method => :post do |f| %>
-  <%= f.submit "Unarchive" %>
-<% end %>
+<%= button_to "Delete", daily_table_path(@daily_table), :method => :delete if permitted_to? :destroy, @daily_table %>
+<%= button_to "Unarchive", unarchiveit_daily_table_path(@daily_table) if permitted_to? :unarchiveit, @daily_table %>
 <%= content_tag(:p, link_to("Archive", archive_daily_table_path(@daily_table))) if permitted_to? :archive, @daily_table %>
 <%= content_tag(:p, link_to("Edit", edit_daily_table_path(@daily_table))) if permitted_to? :edit, @daily_table %>
 

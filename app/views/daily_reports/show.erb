@@ -13,6 +13,9 @@
 <h6>Last updated: <%= report_time_ago(@daily_report) %></h6>
 <h6>Next updated: <%= report_time_next(@daily_report) %></h6>
 
+<%= button_to "Archive", archiveit_daily_table_daily_report_path(@daily_report.table, @daily_report) if permitted_to? :archiveit, @daily_report %>
+<%= button_to "Unarchive", unarchiveit_daily_table_daily_report_path(@daily_report.table, @daily_report) if permitted_to? :unarchiveit, @daily_report %>
+<%= button_to "Delete", daily_table_daily_report_path(@daily_report.table, @daily_report), :method => :delete if permitted_to? :destroy, @daily_report %>
 <%= button_to "Queue Update Now", generate_daily_table_daily_report_path(@daily_report.table, @daily_report) if permitted_to? :generate, @daily_report %>
 <%= content_tag(:p, link_to("Edit", edit_daily_table_daily_report_path(@daily_report.table, @daily_report))) if permitted_to? :edit, @daily_report %>
 

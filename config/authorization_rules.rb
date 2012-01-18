@@ -26,8 +26,9 @@ authorization do
       if_attribute :has_reports? => is { false }
     end
     
-    has_permission_on :daily_tables, :to => [:report] do
+    has_permission_on :daily_tables, :to => [:report], :join_by => :and do
       if_permitted_to :show
+      if_attribute :archived? => is_not { true }
     end
     
     has_permission_on :daily_reports, :to => [:create] do
@@ -38,8 +39,27 @@ authorization do
       if_attribute :user => is { user }
     end
     
-    has_permission_on :daily_reports, :to => [:show, :generate] do
+    has_permission_on :daily_reports, :to => [:archive, :archiveit], :join_by => :and do
       if_permitted_to :update
+      if_attribute :archived? => is_not { true }
+    end
+    
+    has_permission_on :daily_reports, :to => [:unarchiveit], :join_by => :and do
+      if_permitted_to :update
+      if_attribute :archived? => is { true }
+    end
+    
+    has_permission_on :daily_reports, :to => [:destroy], :join_by => :and do
+      if_permitted_to :update
+    end
+    
+    has_permission_on :daily_reports, :to => [:show] do
+      if_permitted_to :update
+    end
+    
+    has_permission_on :daily_reports, :to => [:generate], :join_by => :and do
+      if_permitted_to :update
+      if_attribute :archived? => is_not { true }
     end
     
     has_permission_on :daily_users, :to => [:update, :account] do
