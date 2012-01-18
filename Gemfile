@@ -17,6 +17,8 @@ gem 'ruport-util', :require => 'ruport/util'
 gem 'dbi'
 gem 'dbd-mysql'
 
+gem 'googlecharts'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

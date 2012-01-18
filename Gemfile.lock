@@ -81,6 +81,7 @@ GEM
       railties (>= 3.0.0)
     fastercsv (1.5.4)
     ffi (1.0.11)
+    googlecharts (1.6.8)
     has_scope (0.5.1)
     hike (1.2.1)
     hoe (2.12.5)
@@ -231,6 +232,7 @@ DEPENDENCIES
   delayed_job_active_record
   devise
   factory_girl_rails
+  googlecharts
   inherited_resources
   jquery-rails
   json
