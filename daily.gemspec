@@ -35,6 +35,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'dbi'
   s.add_dependency 'dbd-mysql'
   
+  s.add_dependency 'googlecharts'
+  
   s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'mocha'
   s.add_development_dependency 'shoulda'

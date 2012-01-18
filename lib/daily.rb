@@ -16,6 +16,8 @@ require 'ruport/util'
 
 require 'dbi'
 
+require 'googlecharts'
+
 require "daily/activemetric"
 
 require "daily/daily_config"
